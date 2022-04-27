@@ -1,4 +1,4 @@
-package com.gornostai.rickandmorty.ui
+package com.gornostai.rickandmorty.ui.screens.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,7 @@ import com.gornostai.rickandmorty.ui.screens.episodes.EpisodesFragment
 import com.gornostai.rickandmorty.ui.screens.locations.LocationsFragment
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.ActivityMainBinding
+import com.gornostai.rickandmorty.utills.Navigator
 
 class MainActivity : AppCompatActivity() {
 

@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gornostai.rickandmorty.databinding.FragmentEpisodesBinding
-import com.gornostai.rickandmorty.ui.screens.episodes.adapters.EpisodeAdapter
+import com.gornostai.rickandmorty.ui.screens.episodes.adapters.EpisodesAdapter
 
 class EpisodesFragment : Fragment() {
 
     private lateinit var binding: FragmentEpisodesBinding
 
-    val adapter = EpisodeAdapter()
+    val adapter = EpisodesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

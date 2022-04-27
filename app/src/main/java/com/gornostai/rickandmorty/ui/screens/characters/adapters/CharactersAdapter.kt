@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.ItemChatacterBinding
 
-class CharacterAdapter: RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
+class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
 
     private var data: List<CharacterItemModel> = listOf(
         CharacterItemModel(id = 1, name = "rick morty1", species = "human", status = "alive", gender = "man", image = ""),

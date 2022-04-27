@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gornostai.rickandmorty.databinding.ItemEpisodeBinding
 
-class EpisodeAdapter: RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() {
+class EpisodesAdapter: RecyclerView.Adapter<EpisodesAdapter.EpisodeViewHolder>() {
 
     private var data: List<EpisodeItemModel> = listOf(
         EpisodeItemModel(id = 0, name = "pilot1", episode = "S01E03", air_date = "December 16, 2013"),

@@ -1,4 +1,4 @@
-package com.gornostai.rickandmorty.ui
+package com.gornostai.rickandmorty.utills
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
