@@ -1,4 +1,4 @@
-package com.gornostai.rickandmorty.ui.screens.characterDetail
+package com.gornostai.rickandmorty.ui.screens.characterDetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,7 @@ import com.gornostai.rickandmorty.data.repositories.CharactersRepositoryImpl
 import com.gornostai.rickandmorty.domain.models.CharacterModel
 import com.gornostai.rickandmorty.domain.usecases.GetCharacterItemUseCase
 
-class CharacterDetailViewModel : ViewModel() {
+class CharacterDetailsViewModel : ViewModel() {
 
     private val repository = CharactersRepositoryImpl
 

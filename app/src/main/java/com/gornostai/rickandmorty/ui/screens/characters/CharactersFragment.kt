@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.gornostai.rickandmorty.databinding.FragmentCharactersBinding
-import com.gornostai.rickandmorty.ui.screens.characterDetail.CharacterDetailFragment
+import com.gornostai.rickandmorty.ui.screens.characterDetails.CharacterDetailsFragment
 import com.gornostai.rickandmorty.ui.screens.characters.adapters.CharactersAdapter
 import com.gornostai.rickandmorty.utills.Navigator
 
@@ -41,7 +41,7 @@ class CharactersFragment : Fragment() {
         binding.rvCharacters.adapter = adapter
         adapter.onCharacterItemClickListener = {
             Navigator.setFragment(
-                CharacterDetailFragment.newInstance(it.id),
+                CharacterDetailsFragment.newInstance(it.id),
                 (requireActivity() as AppCompatActivity),
                 true
             )

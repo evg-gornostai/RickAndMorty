@@ -1,4 +1,4 @@
-package com.gornostai.rickandmorty.ui.screens.characterDetail
+package com.gornostai.rickandmorty.ui.screens.characterDetails
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,25 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import com.gornostai.rickandmorty.databinding.FragmentCharacterDetailBinding
+import com.gornostai.rickandmorty.databinding.FragmentCharacterDetailsBinding
 
-class CharacterDetailFragment : Fragment() {
+class CharacterDetailsFragment : Fragment() {
 
-    private lateinit var binding: FragmentCharacterDetailBinding
+    private lateinit var binding: FragmentCharacterDetailsBinding
 
-    private lateinit var viewModel: CharacterDetailViewModel
+    private lateinit var viewModel: CharacterDetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCharacterDetailBinding.inflate(inflater, container, false)
+        binding = FragmentCharacterDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[CharacterDetailViewModel::class.java]
+        viewModel = ViewModelProvider(this)[CharacterDetailsViewModel::class.java]
         initView()
     }
 
@@ -44,7 +44,7 @@ class CharacterDetailFragment : Fragment() {
         const val ARG_CHARACTER_ITEM_ID = "ARG_CHARACTER_ITEM_ID"
 
         fun newInstance(characterItemId: Int) =
-            CharacterDetailFragment().apply {
+            CharacterDetailsFragment().apply {
                 arguments = bundleOf(ARG_CHARACTER_ITEM_ID to characterItemId)
             }
     }

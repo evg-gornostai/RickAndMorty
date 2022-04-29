@@ -10,11 +10,15 @@ object Navigator {
     fun setFragment(
         newFragment: Fragment,
         activity: AppCompatActivity,
-        addToBackStack: Boolean = false
+        addToBackStack: Boolean = false,
+        popBackStack: Boolean = false
     ) {
         val transaction = activity.supportFragmentManager.beginTransaction()
         if (addToBackStack) {
             transaction.addToBackStack(null)
+        }
+        if (popBackStack){
+            activity.supportFragmentManager.popBackStack()
         }
         transaction.replace(R.id.main_fragment_container, newFragment)
         transaction.commit()

@@ -18,24 +18,36 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             Navigator.setFragment(CharactersFragment.newInstance(), this)
         }
 
         setBottomNavListener()
     }
 
-    fun setBottomNavListener(){
+    fun setBottomNavListener() {
         binding.mainBottomNavigation.setOnItemSelectedListener {
-            when (it.itemId){
+            when (it.itemId) {
                 R.id.menu_characters -> {
-                    Navigator.setFragment(CharactersFragment.newInstance(), this)
+                    Navigator.setFragment(
+                        newFragment = CharactersFragment.newInstance(),
+                        activity = this,
+                        popBackStack = true
+                    )
                 }
                 R.id.menu_episodes -> {
-                    Navigator.setFragment(EpisodesFragment.newInstance(), this)
+                    Navigator.setFragment(
+                        newFragment = EpisodesFragment.newInstance(),
+                        activity = this,
+                        popBackStack = true
+                    )
                 }
                 R.id.menu_locations -> {
-                    Navigator.setFragment(LocationsFragment.newInstance(), this)
+                    Navigator.setFragment(
+                        newFragment = LocationsFragment.newInstance(),
+                        activity = this,
+                        popBackStack = true
+                    )
                 }
             }
             true
