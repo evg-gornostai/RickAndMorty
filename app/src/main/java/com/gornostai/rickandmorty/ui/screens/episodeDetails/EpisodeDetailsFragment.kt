@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.FragmentEpisodeDetailsBinding
+import com.gornostai.rickandmorty.utills.HasCustomTitle
 
-class EpisodeDetailsFragment : Fragment() {
+class EpisodeDetailsFragment : Fragment(), HasCustomTitle {
 
     private lateinit var binding: FragmentEpisodeDetailsBinding
 
@@ -28,6 +30,8 @@ class EpisodeDetailsFragment : Fragment() {
         viewModel = ViewModelProvider(this)[EpisodeDetailsViewModel::class.java]
         initView()
     }
+
+    override fun getTitleRes(): Int = R.string.episode_details_title
 
     private fun initView() {
         val id = arguments.let {

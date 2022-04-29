@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.FragmentCharacterDetailsBinding
+import com.gornostai.rickandmorty.utills.HasCustomTitle
 
-class CharacterDetailsFragment : Fragment() {
+class CharacterDetailsFragment : Fragment(), HasCustomTitle {
 
     private lateinit var binding: FragmentCharacterDetailsBinding
 
@@ -29,12 +31,14 @@ class CharacterDetailsFragment : Fragment() {
         initView()
     }
 
+    override fun getTitleRes(): Int = R.string.character_details_title
+
     private fun initView() {
         val id = arguments.let {
             it?.getInt(ARG_CHARACTER_ITEM_ID)
         }
         viewModel.getCharacterItem(id ?: throw RuntimeException("id is null"))
-        viewModel.characterItem.observe(viewLifecycleOwner){
+        viewModel.characterItem.observe(viewLifecycleOwner) {
             binding.tvtest.text = it.toString()
         }
     }

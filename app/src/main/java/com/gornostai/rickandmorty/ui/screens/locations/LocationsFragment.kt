@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.FragmentLocationsBinding
 import com.gornostai.rickandmorty.ui.screens.locationDetails.LocationDetailsFragment
 import com.gornostai.rickandmorty.ui.screens.locations.adapters.LocationsAdapter
+import com.gornostai.rickandmorty.utills.HasCustomTitle
 import com.gornostai.rickandmorty.utills.Navigator
 
-class LocationsFragment : Fragment() {
+class LocationsFragment : Fragment(), HasCustomTitle {
 
     private lateinit var binding: FragmentLocationsBinding
     private lateinit var viewModel: LocationsViewModel
@@ -36,6 +38,8 @@ class LocationsFragment : Fragment() {
         }
         setupRecyclerView()
     }
+
+    override fun getTitleRes(): Int = R.string.locations_title
 
     private fun setupRecyclerView() {
         binding.rvLocations.adapter = adapter
