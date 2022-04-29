@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.gornostai.rickandmorty.databinding.FragmentCharactersBinding
+import com.gornostai.rickandmorty.ui.screens.characterDetail.CharacterDetailFragment
 import com.gornostai.rickandmorty.ui.screens.characters.adapters.CharactersAdapter
+import com.gornostai.rickandmorty.utills.Navigator
 
 class CharactersFragment : Fragment() {
 
@@ -28,10 +31,21 @@ class CharactersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[CharactersViewModel::class.java]
-        viewModel.charactersList.observe(viewLifecycleOwner){
+        viewModel.charactersList.observe(viewLifecycleOwner) {
             adapter.setData(it)
         }
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
         binding.rvCharacters.adapter = adapter
+        adapter.onCharacterItemClickListener = {
+            Navigator.setFragment(
+                CharacterDetailFragment.newInstance(it.id),
+                (requireActivity() as AppCompatActivity),
+                true
+            )
+        }
     }
 
     companion object {

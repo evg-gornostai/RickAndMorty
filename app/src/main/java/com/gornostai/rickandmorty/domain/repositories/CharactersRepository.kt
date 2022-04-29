@@ -7,4 +7,6 @@ interface CharactersRepository {
 
     fun getCharactersList(): LiveData<List<CharacterModel>>
 
+    fun getCharacterItem(characterItemId: Int): CharacterModel
+
 }

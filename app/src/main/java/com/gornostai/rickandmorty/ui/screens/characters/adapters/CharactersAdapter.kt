@@ -11,6 +11,8 @@ class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.CharacterViewHol
 
     private var data: List<CharacterModel> = listOf()
 
+    var onCharacterItemClickListener: ((CharacterModel) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val binding = ItemChatacterBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,6 +21,9 @@ class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.CharacterViewHol
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(data[position])
+        holder.itemView.setOnClickListener {
+            onCharacterItemClickListener?.invoke(data[position])
+        }
     }
 
     override fun getItemCount(): Int = data.size

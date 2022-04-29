@@ -29,4 +29,10 @@ object CharactersRepositoryImpl : CharactersRepository {
         characterListLD.value = characterList
         return characterListLD
     }
+
+    override fun getCharacterItem(characterItemId: Int): CharacterModel {
+        return characterList.find {
+            it.id == characterItemId
+        } ?: throw RuntimeException("Element with id $characterItemId not found")
+    }
 }

@@ -3,7 +3,7 @@ package com.gornostai.rickandmorty.domain.models
 data class CharacterModel(
     val episode: List<String> = listOf(),
     val gender: String = "",
-    val id: Int = 0,
+    val id: Int = -1,
     val image: String = "",
     val location: Location = Location(),
     val name: String = "",

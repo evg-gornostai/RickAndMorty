@@ -11,13 +11,13 @@ object Navigator {
         newFragment: Fragment,
         activity: AppCompatActivity,
         addToBackStack: Boolean = false
-    ){
+    ) {
         val transaction = activity.supportFragmentManager.beginTransaction()
-        if (addToBackStack){
+        if (addToBackStack) {
             transaction.addToBackStack(null)
         }
         transaction.replace(R.id.main_fragment_container, newFragment)
         transaction.commit()
-        currentFragment =newFragment
+        currentFragment = newFragment
     }
 }
