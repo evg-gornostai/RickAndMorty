@@ -5,21 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.ItemChatacterBinding
+import com.gornostai.rickandmorty.domain.models.CharacterModel
 
 class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
 
-    private var data: List<CharacterItemModel> = listOf(
-        CharacterItemModel(id = 1, name = "rick morty1", species = "human", status = "alive", gender = "man", image = ""),
-        CharacterItemModel(id = 2, name = "rick morty2", species = "human", status = "alive", gender = "man", image = ""),
-        CharacterItemModel(id = 3, name = "rick morty3", species = "human", status = "alive", gender = "man", image = ""),
-        CharacterItemModel(id = 4, name = "rick morty4", species = "human", status = "alive", gender = "man", image = ""),
-        CharacterItemModel(id = 5, name = "rick morty5", species = "human", status = "alive", gender = "man", image = ""),
-        CharacterItemModel(id = 6, name = "rick morty6", species = "human", status = "alive", gender = "man", image = ""),
-        CharacterItemModel(id = 7, name = "rick morty7", species = "human", status = "alive", gender = "man", image = ""),
-        CharacterItemModel(id = 8, name = "rick morty8", species = "human", status = "alive", gender = "man", image = ""),
-        CharacterItemModel(id = 9, name = "rick morty9", species = "human", status = "alive", gender = "man", image = ""),
-        CharacterItemModel(id = 10, name = "rick morty10", species = "human", status = "alive", gender = "man", image = ""),
-    )
+    private var data: List<CharacterModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val binding = ItemChatacterBinding
@@ -33,12 +23,12 @@ class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.CharacterViewHol
 
     override fun getItemCount(): Int = data.size
 
-    fun setData(newData: List<CharacterItemModel>){
+    fun setData(newData: List<CharacterModel>){
         data = newData
     }
 
     class CharacterViewHolder(val binding: ItemChatacterBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: CharacterItemModel){
+        fun bind(model: CharacterModel){
             binding.apply {
                 ivCharacterImage.setImageResource(R.drawable.icon_characters)
                 tvCharacterName.text = model.name
