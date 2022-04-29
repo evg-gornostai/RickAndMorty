@@ -7,4 +7,6 @@ interface LocationsRepository {
 
     fun getLocationsList(): LiveData<List<LocationModel>>
 
+    fun getLocationItem(locationItemId: Int): LocationModel
+
 }

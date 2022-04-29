@@ -27,4 +27,10 @@ object LocationsRepositoryImpl: LocationsRepository {
         locationListLD.value = locationList
         return locationListLD
     }
+
+    override fun getLocationItem(locationItemId: Int): LocationModel {
+        return locationList.find {
+            it.id == locationItemId
+        } ?: throw RuntimeException("Element with id $locationItemId not found")
+    }
 }
