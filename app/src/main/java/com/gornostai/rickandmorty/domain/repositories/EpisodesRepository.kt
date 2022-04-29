@@ -7,4 +7,6 @@ interface EpisodesRepository {
 
     fun getEpisodesList(): LiveData<List<EpisodeModel>>
 
+    fun getEpisodeItem(episodeItemId: Int): EpisodeModel
+
 }

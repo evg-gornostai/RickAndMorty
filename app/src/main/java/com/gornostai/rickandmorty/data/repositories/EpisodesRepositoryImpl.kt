@@ -27,4 +27,10 @@ object EpisodesRepositoryImpl: EpisodesRepository {
         episodeListLD.value = episodeList
         return episodeListLD
     }
+
+    override fun getEpisodeItem(episodeItemId: Int): EpisodeModel {
+       return episodeList.find {
+           it.id == episodeItemId
+       } ?: throw RuntimeException("Element with id $episodeItemId not found")
+    }
 }

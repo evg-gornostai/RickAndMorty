@@ -1,13 +1,16 @@
 package com.gornostai.rickandmorty.ui.screens.episodes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gornostai.rickandmorty.databinding.FragmentEpisodesBinding
+import com.gornostai.rickandmorty.ui.screens.episodeDetails.EpisodeDetailsFragment
 import com.gornostai.rickandmorty.ui.screens.episodes.adapters.EpisodesAdapter
+import com.gornostai.rickandmorty.utills.Navigator
 
 class EpisodesFragment : Fragment() {
 
@@ -28,10 +31,21 @@ class EpisodesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vieModel = ViewModelProvider(this)[EpisodesViewModel::class.java]
-        vieModel.episodesList.observe(viewLifecycleOwner){
+        vieModel.episodesList.observe(viewLifecycleOwner) {
             adapter.setData(it)
         }
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
         binding.rvEpisodes.adapter = adapter
+        adapter.onEpisodeItemClickListener = {
+            Navigator.setFragment(
+                EpisodeDetailsFragment.newInstance(it.id),
+                (requireActivity() as AppCompatActivity),
+                true
+            )
+        }
     }
 
     companion object {

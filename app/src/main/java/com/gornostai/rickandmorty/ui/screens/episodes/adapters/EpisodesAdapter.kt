@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gornostai.rickandmorty.databinding.ItemEpisodeBinding
 import com.gornostai.rickandmorty.domain.models.EpisodeModel
 
-class EpisodesAdapter: RecyclerView.Adapter<EpisodesAdapter.EpisodeViewHolder>() {
+class EpisodesAdapter : RecyclerView.Adapter<EpisodesAdapter.EpisodeViewHolder>() {
 
     private var data: List<EpisodeModel> = listOf()
+
+    var onEpisodeItemClickListener: ((EpisodeModel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpisodeViewHolder {
         val binding = ItemEpisodeBinding
@@ -18,16 +20,20 @@ class EpisodesAdapter: RecyclerView.Adapter<EpisodesAdapter.EpisodeViewHolder>()
 
     override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {
         holder.bind(data[position])
+        holder.itemView.setOnClickListener {
+            onEpisodeItemClickListener?.invoke(data[position])
+        }
     }
 
     override fun getItemCount(): Int = data.size
 
-    fun setData(newData: List<EpisodeModel>){
+    fun setData(newData: List<EpisodeModel>) {
         data = newData
     }
 
-    class EpisodeViewHolder(val binding: ItemEpisodeBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: EpisodeModel){
+    class EpisodeViewHolder(val binding: ItemEpisodeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(model: EpisodeModel) {
             binding.apply {
                 tvEpisodeName.text = model.name
                 tvEpisodeNumber.text = model.episode
