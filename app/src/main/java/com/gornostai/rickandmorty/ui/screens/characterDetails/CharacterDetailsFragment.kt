@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.FragmentCharacterDetailsBinding
+import com.gornostai.rickandmorty.utills.HasBackButton
 import com.gornostai.rickandmorty.utills.HasCustomTitle
 
-class CharacterDetailsFragment : Fragment(), HasCustomTitle {
+class CharacterDetailsFragment : Fragment(), HasCustomTitle, HasBackButton {
 
     private lateinit var binding: FragmentCharacterDetailsBinding
 

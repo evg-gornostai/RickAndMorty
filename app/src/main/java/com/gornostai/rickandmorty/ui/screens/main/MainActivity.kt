@@ -10,6 +10,7 @@ import com.gornostai.rickandmorty.ui.screens.episodes.EpisodesFragment
 import com.gornostai.rickandmorty.ui.screens.locations.LocationsFragment
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.ActivityMainBinding
+import com.gornostai.rickandmorty.utills.HasBackButton
 import com.gornostai.rickandmorty.utills.HasCustomTitle
 import com.gornostai.rickandmorty.utills.Navigator
 
@@ -49,6 +50,11 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     private fun setBottomNavListener() {
         binding.mainBottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
@@ -85,6 +91,12 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.title = getString(fragment.getTitleRes())
         } else {
             supportActionBar?.title = getString(R.string.app_name)
+        }
+
+        if (fragment is HasBackButton) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        } else {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
 
     }

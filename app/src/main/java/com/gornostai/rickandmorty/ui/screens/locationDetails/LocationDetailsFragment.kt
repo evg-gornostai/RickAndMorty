@@ -9,9 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.FragmentLocationDetailsBinding
+import com.gornostai.rickandmorty.utills.HasBackButton
 import com.gornostai.rickandmorty.utills.HasCustomTitle
 
-class LocationDetailsFragment : Fragment(), HasCustomTitle {
+class LocationDetailsFragment : Fragment(), HasCustomTitle, HasBackButton {
 
     private lateinit var binding: FragmentLocationDetailsBinding
 
