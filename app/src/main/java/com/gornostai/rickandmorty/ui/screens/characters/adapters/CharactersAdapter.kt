@@ -1,5 +1,6 @@
 package com.gornostai.rickandmorty.ui.screens.characters.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,7 +8,7 @@ import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.ItemChatacterBinding
 import com.gornostai.rickandmorty.domain.models.CharacterModel
 
-class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
+class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHolder>() {
 
     private var data: List<CharacterModel> = listOf()
 
@@ -28,12 +29,13 @@ class CharactersAdapter: RecyclerView.Adapter<CharactersAdapter.CharacterViewHol
 
     override fun getItemCount(): Int = data.size
 
-    fun setData(newData: List<CharacterModel>){
+    fun setData(newData: List<CharacterModel>) {
         data = newData
     }
 
-    class CharacterViewHolder(val binding: ItemChatacterBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: CharacterModel){
+    class CharacterViewHolder(val binding: ItemChatacterBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(model: CharacterModel) {
             binding.apply {
                 ivCharacterImage.setImageResource(R.drawable.icon_characters)
                 tvCharacterName.text = model.name

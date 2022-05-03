@@ -34,6 +34,11 @@ class LocationsFragment : Fragment(), HasCustomTitle {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[LocationsViewModel::class.java]
         viewModel.locationsList.observe(viewLifecycleOwner) {
+            if (it.isEmpty()){
+                binding.tvEmptyMessage.visibility = View.VISIBLE
+            } else {
+                binding.tvEmptyMessage.visibility = View.GONE
+            }
             adapter.setData(it)
         }
         setupRecyclerView()

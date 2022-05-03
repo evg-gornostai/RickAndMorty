@@ -10,4 +10,5 @@
     <string name="character_details_title">Character details</string>
     <string name="location_details_title">Location details</string>
     <string name="episode_details_title">Episode details</string>
+    <string name="empty_message">Empty.</string>
 </resources>

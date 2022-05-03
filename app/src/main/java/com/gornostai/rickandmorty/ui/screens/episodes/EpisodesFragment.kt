@@ -34,6 +34,11 @@ class EpisodesFragment : Fragment(), HasCustomTitle {
         super.onViewCreated(view, savedInstanceState)
         vieModel = ViewModelProvider(this)[EpisodesViewModel::class.java]
         vieModel.episodesList.observe(viewLifecycleOwner) {
+            if (it.isEmpty()){
+                binding.tvEmptyMessage.visibility = View.VISIBLE
+            } else {
+                binding.tvEmptyMessage.visibility = View.GONE
+            }
             adapter.setData(it)
         }
         setupRecyclerView()

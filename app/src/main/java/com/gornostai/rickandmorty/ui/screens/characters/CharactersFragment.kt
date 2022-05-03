@@ -34,6 +34,11 @@ class CharactersFragment : Fragment(), HasCustomTitle {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[CharactersViewModel::class.java]
         viewModel.charactersList.observe(viewLifecycleOwner) {
+            if (it.isEmpty()){
+                binding.tvEmptyMessage.visibility = View.VISIBLE
+            } else {
+                binding.tvEmptyMessage.visibility = View.GONE
+            }
             adapter.setData(it)
         }
         setupRecyclerView()
