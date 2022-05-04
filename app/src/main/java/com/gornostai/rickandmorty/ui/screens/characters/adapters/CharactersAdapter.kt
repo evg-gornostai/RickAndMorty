@@ -37,7 +37,7 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHo
         RecyclerView.ViewHolder(binding.root) {
         fun bind(model: CharacterModel) {
             binding.apply {
-                ivCharacterImage.setImageResource(R.drawable.icon_characters)
+                ivCharacterImage.setImageResource(R.drawable.ic_characters)
                 tvCharacterName.text = model.name
                 tvCharacterGender.text = model.gender
                 tvCharacterSpecies.text = model.species

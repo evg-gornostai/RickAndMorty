@@ -4,21 +4,21 @@
 
     <item
         android:id="@+id/menu_characters"
-        android:icon="@drawable/icon_characters"
+        android:icon="@drawable/ic_characters"
         android:title="@string/menu_characters"
         app:showAsAction="ifRoom"
         />
 
     <item
         android:id="@+id/menu_locations"
-        android:icon="@drawable/icon_locations"
+        android:icon="@drawable/ic_locations"
         android:title="@string/menu_locations"
         app:showAsAction="ifRoom"
         />
 
     <item
         android:id="@+id/menu_episodes"
-        android:icon="@drawable/icon_episodes"
+        android:icon="@drawable/ic_episodes"
         android:title="@string/menu_episodes"
         app:showAsAction="ifRoom"
         />
