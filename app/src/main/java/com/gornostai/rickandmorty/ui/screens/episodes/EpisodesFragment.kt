@@ -17,31 +17,25 @@ import com.gornostai.rickandmorty.utills.Navigator
 class EpisodesFragment : Fragment(), HasCustomTitle {
 
     private lateinit var binding: FragmentEpisodesBinding
-    private lateinit var vieModel: EpisodesViewModel
+    private lateinit var viewModel: EpisodesViewModel
 
-    val adapter = EpisodesAdapter()
+    val adapter: EpisodesAdapter by lazy { EpisodesAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEpisodesBinding.inflate(layoutInflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vieModel = ViewModelProvider(this)[EpisodesViewModel::class.java]
-        vieModel.episodesList.observe(viewLifecycleOwner) {
-            if (it.isEmpty()){
-                binding.tvEmptyMessage.visibility = View.VISIBLE
-            } else {
-                binding.tvEmptyMessage.visibility = View.GONE
-            }
-            adapter.setData(it)
-        }
+        viewModel = ViewModelProvider(this)[EpisodesViewModel::class.java]
         setupRecyclerView()
+        setupData()
+        setupLoading()
+        viewModel.fetchData()
     }
 
     override fun getTitleRes(): Int = R.string.episodes_title
@@ -54,6 +48,27 @@ class EpisodesFragment : Fragment(), HasCustomTitle {
                 (requireActivity() as AppCompatActivity),
                 true
             )
+        }
+    }
+
+    private fun setupData() {
+        viewModel.episodesList.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                binding.tvEmptyMessage.visibility = View.VISIBLE
+            } else {
+                binding.tvEmptyMessage.visibility = View.GONE
+            }
+            adapter.setData(it)
+        }
+    }
+
+    private fun setupLoading() {
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.progressBar.visibility = if (it) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
     }
 

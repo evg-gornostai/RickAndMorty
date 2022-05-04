@@ -5,8 +5,8 @@ import com.gornostai.rickandmorty.domain.models.LocationModel
 
 interface LocationsRepository {
 
-    fun getLocationsList(): LiveData<List<LocationModel>>
+    suspend fun getLocationsList(): List<LocationModel>
 
-    fun getLocationItem(locationItemId: Int): LocationModel
+    suspend fun getLocationItem(locationItemId: Int): LocationModel
 
 }

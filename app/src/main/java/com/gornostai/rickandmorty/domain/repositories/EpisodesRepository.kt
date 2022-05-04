@@ -5,8 +5,8 @@ import com.gornostai.rickandmorty.domain.models.EpisodeModel
 
 interface EpisodesRepository {
 
-    fun getEpisodesList(): LiveData<List<EpisodeModel>>
+    suspend fun getEpisodesList(): List<EpisodeModel>
 
-    fun getEpisodeItem(episodeItemId: Int): EpisodeModel
+    suspend fun getEpisodeItem(episodeItemId: Int): EpisodeModel
 
 }

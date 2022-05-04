@@ -7,7 +7,6 @@ import com.gornostai.rickandmorty.domain.repositories.CharactersRepository
 
 object CharactersRepositoryImpl : CharactersRepository {
 
-    private val characterListLD = MutableLiveData<List<CharacterModel>>()
     private val characterList = mutableListOf<CharacterModel>()
 
     init {
@@ -25,12 +24,11 @@ object CharactersRepositoryImpl : CharactersRepository {
         }
     }
 
-    override fun getCharactersList(): LiveData<List<CharacterModel>> {
-        characterListLD.value = characterList
-        return characterListLD
+    override suspend fun getCharactersList(): List<CharacterModel> {
+        return characterList.toList()
     }
 
-    override fun getCharacterItem(characterItemId: Int): CharacterModel {
+    override suspend fun getCharacterItem(characterItemId: Int): CharacterModel {
         return characterList.find {
             it.id == characterItemId
         } ?: throw RuntimeException("Element with id $characterItemId not found")

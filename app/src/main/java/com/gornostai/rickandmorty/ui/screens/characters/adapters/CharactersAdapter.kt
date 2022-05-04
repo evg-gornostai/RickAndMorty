@@ -1,6 +1,5 @@
 package com.gornostai.rickandmorty.ui.screens.characters.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +30,7 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHo
 
     fun setData(newData: List<CharacterModel>) {
         data = newData
+        notifyDataSetChanged()
     }
 
     class CharacterViewHolder(val binding: ItemChatacterBinding) :

@@ -15,7 +15,6 @@ import com.gornostai.rickandmorty.utills.HasCustomTitle
 class EpisodeDetailsFragment : Fragment(), HasCustomTitle, HasBackButton {
 
     private lateinit var binding: FragmentEpisodeDetailsBinding
-
     private lateinit var viewModel: EpisodeDetailsViewModel
 
     override fun onCreateView(
@@ -29,18 +28,29 @@ class EpisodeDetailsFragment : Fragment(), HasCustomTitle, HasBackButton {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[EpisodeDetailsViewModel::class.java]
-        initView()
+        setupLoading()
+        setupData()
     }
 
     override fun getTitleRes(): Int = R.string.episode_details_title
 
-    private fun initView() {
+    private fun setupData() {
+        viewModel.episodeItem.observe(viewLifecycleOwner) {
+            binding.tvtest.text = it.toString()
+        }
         val id = arguments.let {
             it?.getInt(ARG_EPISODE_ITEM_ID)
         }
         viewModel.getEpisodeItem(id ?: throw RuntimeException("id is null"))
-        viewModel.episodeItem.observe(viewLifecycleOwner) {
-            binding.tvtest.text = it.toString()
+    }
+
+    private fun setupLoading() {
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.progressBar.visibility = if (it) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
     }
 

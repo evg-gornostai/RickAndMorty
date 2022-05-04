@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import com.gornostai.rickandmorty.domain.models.EpisodeModel
 import com.gornostai.rickandmorty.domain.repositories.EpisodesRepository
 
-object EpisodesRepositoryImpl: EpisodesRepository {
+object EpisodesRepositoryImpl : EpisodesRepository {
 
-    private val episodeListLD = MutableLiveData<List<EpisodeModel>>()
-    private val episodeList = mutableListOf<EpisodeModel>()
+    private val episodesList = mutableListOf<EpisodeModel>()
 
     init {
-        for (i in 0..50){
-            episodeList.add(
+        for (i in 0..50) {
+            episodesList.add(
                 EpisodeModel(
                     id = i,
                     name = "pilot$i",
@@ -23,14 +22,13 @@ object EpisodesRepositoryImpl: EpisodesRepository {
         }
     }
 
-    override fun getEpisodesList(): LiveData<List<EpisodeModel>> {
-        episodeListLD.value = episodeList
-        return episodeListLD
+    override suspend fun getEpisodesList(): List<EpisodeModel> {
+        return episodesList.toList()
     }
 
-    override fun getEpisodeItem(episodeItemId: Int): EpisodeModel {
-       return episodeList.find {
-           it.id == episodeItemId
-       } ?: throw RuntimeException("Element with id $episodeItemId not found")
+    override suspend fun getEpisodeItem(episodeItemId: Int): EpisodeModel {
+        return episodesList.find {
+            it.id == episodeItemId
+        } ?: throw RuntimeException("Element with id $episodeItemId not found")
     }
 }

@@ -1,18 +1,16 @@
 package com.gornostai.rickandmorty.data.repositories
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.gornostai.rickandmorty.domain.models.LocationModel
 import com.gornostai.rickandmorty.domain.repositories.LocationsRepository
 
 object LocationsRepositoryImpl: LocationsRepository {
 
-    private val locationListLD = MutableLiveData<List<LocationModel>>()
-    private val locationList = mutableListOf<LocationModel>()
+    private val locationsList = mutableListOf<LocationModel>()
 
     init {
         for (i in 0..50){
-            locationList.add(
+            locationsList.add(
                 LocationModel(
                     id = i,
                     name = "Citadel of Ricks$i",
@@ -23,13 +21,12 @@ object LocationsRepositoryImpl: LocationsRepository {
         }
     }
 
-    override fun getLocationsList(): LiveData<List<LocationModel>> {
-        locationListLD.value = locationList
-        return locationListLD
+    override suspend fun getLocationsList(): List<LocationModel> {
+        return locationsList.toList()
     }
 
-    override fun getLocationItem(locationItemId: Int): LocationModel {
-        return locationList.find {
+    override suspend fun getLocationItem(locationItemId: Int): LocationModel {
+        return locationsList.find {
             it.id == locationItemId
         } ?: throw RuntimeException("Element with id $locationItemId not found")
     }

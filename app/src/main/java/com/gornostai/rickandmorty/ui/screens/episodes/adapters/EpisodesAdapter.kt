@@ -29,6 +29,7 @@ class EpisodesAdapter : RecyclerView.Adapter<EpisodesAdapter.EpisodeViewHolder>(
 
     fun setData(newData: List<EpisodeModel>) {
         data = newData
+        notifyDataSetChanged()
     }
 
     class EpisodeViewHolder(val binding: ItemEpisodeBinding) :

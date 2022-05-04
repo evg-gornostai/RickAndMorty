@@ -6,7 +6,7 @@ import com.gornostai.rickandmorty.domain.repositories.LocationsRepository
 
 class GetLocationsListUseCase(private val repository: LocationsRepository) {
 
-    fun getLocationsList(): LiveData<List<LocationModel>>{
+    suspend fun getLocationsList(): List<LocationModel>{
         return repository.getLocationsList()
     }
 

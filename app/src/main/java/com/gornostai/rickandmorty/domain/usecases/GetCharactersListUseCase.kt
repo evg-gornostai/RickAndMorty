@@ -6,7 +6,7 @@ import com.gornostai.rickandmorty.domain.repositories.CharactersRepository
 
 class GetCharactersListUseCase(private val repository: CharactersRepository) {
 
-    fun getCharactersList(): LiveData<List<CharacterModel>>{
+    suspend fun getCharactersList(): List<CharacterModel>{
         return repository.getCharactersList()
     }
 

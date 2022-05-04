@@ -6,7 +6,7 @@ import com.gornostai.rickandmorty.domain.repositories.EpisodesRepository
 
 class GetEpisodesListUseCase(private val repository: EpisodesRepository) {
 
-    fun getEpisodesList(): LiveData<List<EpisodeModel>>{
+    suspend fun getEpisodesList(): List<EpisodeModel>{
         return repository.getEpisodesList()
     }
 

@@ -5,8 +5,8 @@ import com.gornostai.rickandmorty.domain.models.CharacterModel
 
 interface CharactersRepository {
 
-    fun getCharactersList(): LiveData<List<CharacterModel>>
+    suspend fun getCharactersList(): List<CharacterModel>
 
-    fun getCharacterItem(characterItemId: Int): CharacterModel
+    suspend fun getCharacterItem(characterItemId: Int): CharacterModel
 
 }

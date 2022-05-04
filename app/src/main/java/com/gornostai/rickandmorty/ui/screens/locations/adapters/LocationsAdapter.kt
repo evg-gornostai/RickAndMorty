@@ -29,6 +29,7 @@ class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.LocationViewHolde
 
     fun setData(newData: List<LocationModel>) {
         data = newData
+        notifyDataSetChanged()
     }
 
     class LocationViewHolder(val binding: ItemLocationBinding) :

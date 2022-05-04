@@ -5,7 +5,7 @@ import com.gornostai.rickandmorty.domain.repositories.EpisodesRepository
 
 class GetEpisodeItemUseCase(private val repository: EpisodesRepository) {
 
-    fun getEpisodeItem(episodeItemId: Int): EpisodeModel{
+    suspend fun getEpisodeItem(episodeItemId: Int): EpisodeModel{
         return repository.getEpisodeItem(episodeItemId)
     }
 
