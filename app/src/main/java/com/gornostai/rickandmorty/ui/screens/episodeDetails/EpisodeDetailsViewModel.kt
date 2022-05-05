@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class EpisodeDetailsViewModel : ViewModel() {
 
-    private val repository = EpisodesRepositoryImpl
+    private val repository = EpisodesRepositoryImpl()
 
     private val getEpisodeItemUseCase = GetEpisodeItemUseCase(repository)
 
