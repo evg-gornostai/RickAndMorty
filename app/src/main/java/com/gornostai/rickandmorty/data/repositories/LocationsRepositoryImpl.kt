@@ -1,6 +1,6 @@
 package com.gornostai.rickandmorty.data.repositories
 
-import com.gornostai.rickandmorty.data.mappers.LocationMapper
+import com.gornostai.rickandmorty.domain.mappers.LocationMapper
 import com.gornostai.rickandmorty.data.network.ApiFactory
 import com.gornostai.rickandmorty.domain.models.LocationModel
 import com.gornostai.rickandmorty.domain.repositories.LocationsRepository

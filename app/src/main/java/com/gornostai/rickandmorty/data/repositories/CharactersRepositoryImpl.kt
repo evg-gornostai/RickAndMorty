@@ -1,6 +1,6 @@
 package com.gornostai.rickandmorty.data.repositories
 
-import com.gornostai.rickandmorty.data.mappers.CharacterMapper
+import com.gornostai.rickandmorty.domain.mappers.CharacterMapper
 import com.gornostai.rickandmorty.data.network.ApiFactory
 import com.gornostai.rickandmorty.domain.models.CharacterModel
 import com.gornostai.rickandmorty.domain.repositories.CharactersRepository

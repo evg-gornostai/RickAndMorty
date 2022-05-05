@@ -1,6 +1,6 @@
 package com.gornostai.rickandmorty.data.repositories
 
-import com.gornostai.rickandmorty.data.mappers.EpisodeMapper
+import com.gornostai.rickandmorty.domain.mappers.EpisodeMapper
 import com.gornostai.rickandmorty.data.network.ApiFactory
 import com.gornostai.rickandmorty.domain.models.EpisodeModel
 import com.gornostai.rickandmorty.domain.repositories.EpisodesRepository
