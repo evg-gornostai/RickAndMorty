@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class LocationsViewModel : ViewModel() {
 
-    private val repository = LocationsRepositoryImpl
+    private val repository = LocationsRepositoryImpl()
 
     private val getLocationsUseCase = GetLocationsListUseCase(repository)
 

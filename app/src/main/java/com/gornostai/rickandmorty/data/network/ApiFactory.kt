@@ -1,6 +1,7 @@
 package com.gornostai.rickandmorty.data.network
 
 import com.gornostai.rickandmorty.data.network.services.CharacterService
+import com.gornostai.rickandmorty.data.network.services.LocationService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -27,5 +28,6 @@ object ApiFactory {
         .build()
 
     val characterService = retrofit.create(CharacterService::class.java)
+    val locationService = retrofit.create(LocationService::class.java)
 
 }

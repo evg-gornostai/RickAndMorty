@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class LocationDetailsViewModel : ViewModel() {
 
-    private val repository = LocationsRepositoryImpl
+    private val repository = LocationsRepositoryImpl()
 
     private val getLocationItemUseCase = GetLocationItemUseCase(repository)
 
@@ -24,10 +24,10 @@ class LocationDetailsViewModel : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    fun getLocationItem(locationInemId: Int) {
+    fun getLocationItem(locationItemId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
-            val item = getLocationItemUseCase.getLocationItem(locationInemId)
+            val item = getLocationItemUseCase.getLocationItem(locationItemId)
             _isLoading.postValue(false)
             _locationItem.postValue(item)
         }

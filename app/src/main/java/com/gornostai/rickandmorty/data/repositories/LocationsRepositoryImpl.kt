@@ -1,33 +1,20 @@
 package com.gornostai.rickandmorty.data.repositories
 
-import androidx.lifecycle.LiveData
+import com.gornostai.rickandmorty.data.mappers.LocationMapper
+import com.gornostai.rickandmorty.data.network.ApiFactory
 import com.gornostai.rickandmorty.domain.models.LocationModel
 import com.gornostai.rickandmorty.domain.repositories.LocationsRepository
 
-object LocationsRepositoryImpl: LocationsRepository {
+class LocationsRepositoryImpl: LocationsRepository {
 
-    private val locationsList = mutableListOf<LocationModel>()
-
-    init {
-        for (i in 0..50){
-            locationsList.add(
-                LocationModel(
-                    id = i,
-                    name = "Citadel of Ricks$i",
-                    type = "Space station_$i",
-                    dimension = "unknown_$i"
-                )
-            )
+    override suspend fun getLocationsList(): List<LocationModel> {
+        return ApiFactory.locationService.getLocationsList().results.map {
+            LocationMapper().mapDtoToEntity(it)
         }
     }
 
-    override suspend fun getLocationsList(): List<LocationModel> {
-        return locationsList.toList()
-    }
-
     override suspend fun getLocationItem(locationItemId: Int): LocationModel {
-        return locationsList.find {
-            it.id == locationItemId
-        } ?: throw RuntimeException("Element with id $locationItemId not found")
+        val dtoModel = ApiFactory.locationService.getLocation(locationItemId.toString())
+        return LocationMapper().mapDtoToEntity(dtoModel)
     }
 }
