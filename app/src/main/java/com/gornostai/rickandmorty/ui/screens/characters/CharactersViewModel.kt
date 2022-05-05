@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class CharactersViewModel : ViewModel() {
 
-    private val repository = CharactersRepositoryImpl
+    private val repository = CharactersRepositoryImpl()
 
     private val getCharactersListUseCase = GetCharactersListUseCase(repository)
 
