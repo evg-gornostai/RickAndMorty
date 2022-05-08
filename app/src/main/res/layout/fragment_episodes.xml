@@ -15,9 +15,7 @@
             android:id="@+id/rv_episodes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2" />
+            android:orientation="vertical" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -25,8 +23,8 @@
         android:id="@+id/tv_empty_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/empty_message"
-        android:visibility="gone"
-        android:layout_gravity="center"/>
+        android:visibility="gone" />
 
 </FrameLayout>

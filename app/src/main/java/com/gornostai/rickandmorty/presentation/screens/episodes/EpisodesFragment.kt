@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.FragmentEpisodesBinding
 import com.gornostai.rickandmorty.presentation.contracts.HasCustomTitle
@@ -14,6 +15,7 @@ import com.gornostai.rickandmorty.presentation.contracts.HasSearchButton
 import com.gornostai.rickandmorty.presentation.contracts.navigator
 import com.gornostai.rickandmorty.presentation.screens.episodeDetails.EpisodeDetailsFragment
 import com.gornostai.rickandmorty.presentation.screens.episodes.adapters.EpisodesAdapter
+import com.gornostai.rickandmorty.presentation.screens.episodes.adapters.SpacesItemDecoration
 
 class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchButton {
 
@@ -57,6 +59,8 @@ class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchB
     }
 
     private fun setupRecyclerView() {
+        binding.rvEpisodes.layoutManager = GridLayoutManager(requireActivity(), 2)
+        binding.rvEpisodes.addItemDecoration(SpacesItemDecoration(50))
         binding.rvEpisodes.adapter = adapter
         adapter.onEpisodeItemClickListener = {
             navigator().setFragment(
