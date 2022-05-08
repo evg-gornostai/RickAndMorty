@@ -1,11 +1,13 @@
 package com.gornostai.rickandmorty.domain.repositories
 
-import com.gornostai.rickandmorty.domain.models.LocationModel
+import com.gornostai.rickandmorty.domain.entities.LocationEntity
 
 interface LocationsRepository {
 
-    suspend fun getLocationsList(): List<LocationModel>
+    suspend fun loadData()
 
-    suspend fun getLocationItem(locationItemId: Int): LocationModel
+    suspend fun getLocationsList(): List<LocationEntity>
+
+    suspend fun getLocationItem(locationItemId: Int): LocationEntity
 
 }

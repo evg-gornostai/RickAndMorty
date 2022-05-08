@@ -1,11 +1,13 @@
 package com.gornostai.rickandmorty.domain.repositories
 
-import com.gornostai.rickandmorty.domain.models.CharacterModel
+import com.gornostai.rickandmorty.domain.entities.CharacterEntity
 
 interface CharactersRepository {
 
-    suspend fun getCharactersList(): List<CharacterModel>
+    suspend fun loadData()
 
-    suspend fun getCharacterItem(characterItemId: Int): CharacterModel
+    suspend fun getCharactersList(): List<CharacterEntity>
+
+    suspend fun getCharacterItem(characterItemId: Int): CharacterEntity
 
 }

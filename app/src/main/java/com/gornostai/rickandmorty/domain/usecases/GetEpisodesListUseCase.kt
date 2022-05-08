@@ -1,12 +1,11 @@
 package com.gornostai.rickandmorty.domain.usecases
 
-import androidx.lifecycle.LiveData
-import com.gornostai.rickandmorty.domain.models.EpisodeModel
+import com.gornostai.rickandmorty.domain.entities.EpisodeEntity
 import com.gornostai.rickandmorty.domain.repositories.EpisodesRepository
 
 class GetEpisodesListUseCase(private val repository: EpisodesRepository) {
 
-    suspend fun getEpisodesList(): List<EpisodeModel>{
+    suspend fun getEpisodesList(): List<EpisodeEntity>{
         return repository.getEpisodesList()
     }
 

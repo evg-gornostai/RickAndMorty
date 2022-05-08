@@ -1,11 +1,13 @@
 package com.gornostai.rickandmorty.domain.repositories
 
-import com.gornostai.rickandmorty.domain.models.EpisodeModel
+import com.gornostai.rickandmorty.domain.entities.EpisodeEntity
 
 interface EpisodesRepository {
 
-    suspend fun getEpisodesList(): List<EpisodeModel>
+    suspend fun loadData()
 
-    suspend fun getEpisodeItem(episodeItemId: Int): EpisodeModel
+    suspend fun getEpisodesList(): List<EpisodeEntity>
+
+    suspend fun getEpisodeItem(episodeItemId: Int): EpisodeEntity
 
 }

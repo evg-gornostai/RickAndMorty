@@ -1,23 +1,21 @@
 package com.gornostai.rickandmorty.presentation.screens.characterDetails
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
 import com.gornostai.rickandmorty.data.repositories.CharactersRepositoryImpl
-import com.gornostai.rickandmorty.domain.models.CharacterModel
+import com.gornostai.rickandmorty.domain.entities.CharacterEntity
 import com.gornostai.rickandmorty.domain.usecases.GetCharacterItemUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CharacterDetailsViewModel : ViewModel() {
+class CharacterDetailsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = CharactersRepositoryImpl()
+    private val repository = CharactersRepositoryImpl(application)
 
     private val getCharacterItemUseCase = GetCharacterItemUseCase(repository)
 
-    private val _characterItem = MutableLiveData<CharacterModel>()
-    val characterItem: LiveData<CharacterModel>
+    private val _characterItem = MutableLiveData<CharacterEntity>()
+    val characterItem: LiveData<CharacterEntity>
         get() = _characterItem
 
     private val _isLoading = MutableLiveData<Boolean>().apply { value = false }

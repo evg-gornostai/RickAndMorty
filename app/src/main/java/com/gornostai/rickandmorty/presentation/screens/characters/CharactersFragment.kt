@@ -1,5 +1,6 @@
 package com.gornostai.rickandmorty.presentation.screens.characters
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,11 @@ class CharactersFragment : Fragment(), HasCustomTitle {
 
     val adapter: CharactersAdapter by lazy { CharactersAdapter() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[CharactersViewModel::class.java]
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,7 +38,6 @@ class CharactersFragment : Fragment(), HasCustomTitle {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[CharactersViewModel::class.java]
         setupRecyclerView()
         setupData()
         setupLoading()

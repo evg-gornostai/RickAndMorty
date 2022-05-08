@@ -21,6 +21,11 @@ class EpisodesFragment : Fragment(), HasCustomTitle {
 
     val adapter: EpisodesAdapter by lazy { EpisodesAdapter() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[EpisodesViewModel::class.java]
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +36,6 @@ class EpisodesFragment : Fragment(), HasCustomTitle {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[EpisodesViewModel::class.java]
         setupRecyclerView()
         setupData()
         setupLoading()

@@ -21,6 +21,11 @@ class LocationsFragment : Fragment(), HasCustomTitle {
 
     private val adapter: LocationsAdapter by lazy { LocationsAdapter() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[LocationsViewModel::class.java]
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +36,6 @@ class LocationsFragment : Fragment(), HasCustomTitle {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[LocationsViewModel::class.java]
         setupRecyclerView()
         setupData()
         setupLoading()

@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gornostai.rickandmorty.databinding.ItemLocationBinding
-import com.gornostai.rickandmorty.domain.models.LocationModel
+import com.gornostai.rickandmorty.domain.entities.LocationEntity
 
 class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.LocationViewHolder>() {
 
-    private var data: List<LocationModel> = listOf()
+    private var data: List<LocationEntity> = listOf()
 
-    var onLocationItemClickListener: ((LocationModel) -> Unit)? = null
+    var onLocationItemClickListener: ((LocationEntity) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val binding = ItemLocationBinding
@@ -27,14 +27,14 @@ class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.LocationViewHolde
 
     override fun getItemCount(): Int = data.size
 
-    fun setData(newData: List<LocationModel>) {
+    fun setData(newData: List<LocationEntity>) {
         data = newData
         notifyDataSetChanged()
     }
 
     class LocationViewHolder(val binding: ItemLocationBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: LocationModel) {
+        fun bind(model: LocationEntity) {
             binding.apply {
                 tvLocationName.text = model.name
                 tvLocatoinType.text = model.type

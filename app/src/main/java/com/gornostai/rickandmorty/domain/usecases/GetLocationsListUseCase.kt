@@ -1,12 +1,11 @@
 package com.gornostai.rickandmorty.domain.usecases
 
-import androidx.lifecycle.LiveData
-import com.gornostai.rickandmorty.domain.models.LocationModel
+import com.gornostai.rickandmorty.domain.entities.LocationEntity
 import com.gornostai.rickandmorty.domain.repositories.LocationsRepository
 
 class GetLocationsListUseCase(private val repository: LocationsRepository) {
 
-    suspend fun getLocationsList(): List<LocationModel>{
+    suspend fun getLocationsList(): List<LocationEntity>{
         return repository.getLocationsList()
     }
 
