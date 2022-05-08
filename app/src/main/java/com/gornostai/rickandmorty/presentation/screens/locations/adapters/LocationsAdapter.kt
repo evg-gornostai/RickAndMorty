@@ -2,13 +2,12 @@ package com.gornostai.rickandmorty.presentation.screens.locations.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.gornostai.rickandmorty.databinding.ItemLocationBinding
 import com.gornostai.rickandmorty.domain.entities.LocationEntity
 
-class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.LocationViewHolder>() {
-
-    private var data: List<LocationEntity> = listOf()
+class LocationsAdapter :
+    ListAdapter<LocationEntity, LocationViewHolder>(LocationItemDiffCallBack()) {
 
     var onLocationItemClickListener: ((LocationEntity) -> Unit)? = null
 
@@ -19,27 +18,10 @@ class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.LocationViewHolde
     }
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(getItem(position))
         holder.itemView.setOnClickListener {
-            onLocationItemClickListener?.invoke(data[position])
+            onLocationItemClickListener?.invoke(getItem(position))
         }
     }
 
-    override fun getItemCount(): Int = data.size
-
-    fun setData(newData: List<LocationEntity>) {
-        data = newData
-        notifyDataSetChanged()
-    }
-
-    class LocationViewHolder(val binding: ItemLocationBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: LocationEntity) {
-            binding.apply {
-                tvLocationName.text = model.name
-                tvLocatoinType.text = model.type
-                tvLocationDimension.text = model.dimension
-            }
-        }
-    }
 }

@@ -63,7 +63,7 @@ class CharactersFragment : Fragment(), HasCustomTitle {
             } else {
                 binding.tvEmptyMessage.visibility = View.GONE
             }
-            adapter.setData(it)
+            adapter.submitList(it)
         }
     }
 

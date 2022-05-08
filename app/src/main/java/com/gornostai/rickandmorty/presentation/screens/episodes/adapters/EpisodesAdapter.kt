@@ -2,13 +2,11 @@ package com.gornostai.rickandmorty.presentation.screens.episodes.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.gornostai.rickandmorty.databinding.ItemEpisodeBinding
 import com.gornostai.rickandmorty.domain.entities.EpisodeEntity
 
-class EpisodesAdapter : RecyclerView.Adapter<EpisodesAdapter.EpisodeViewHolder>() {
-
-    private var data: List<EpisodeEntity> = listOf()
+class EpisodesAdapter : ListAdapter<EpisodeEntity, EpisodeViewHolder>(EpisodeItemDiffCallBack()) {
 
     var onEpisodeItemClickListener: ((EpisodeEntity) -> Unit)? = null
 
@@ -19,27 +17,10 @@ class EpisodesAdapter : RecyclerView.Adapter<EpisodesAdapter.EpisodeViewHolder>(
     }
 
     override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(getItem(position))
         holder.itemView.setOnClickListener {
-            onEpisodeItemClickListener?.invoke(data[position])
+            onEpisodeItemClickListener?.invoke(getItem(position))
         }
     }
 
-    override fun getItemCount(): Int = data.size
-
-    fun setData(newData: List<EpisodeEntity>) {
-        data = newData
-        notifyDataSetChanged()
-    }
-
-    class EpisodeViewHolder(val binding: ItemEpisodeBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: EpisodeEntity) {
-            binding.apply {
-                tvEpisodeName.text = model.name
-                tvEpisodeNumber.text = model.episode
-                tvAirDate.text = model.air_date
-            }
-        }
-    }
 }
