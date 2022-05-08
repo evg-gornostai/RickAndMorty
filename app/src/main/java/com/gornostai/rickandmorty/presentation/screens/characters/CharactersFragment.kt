@@ -1,20 +1,17 @@
 package com.gornostai.rickandmorty.presentation.screens.characters
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.FragmentCharactersBinding
+import com.gornostai.rickandmorty.presentation.contracts.HasCustomTitle
+import com.gornostai.rickandmorty.presentation.contracts.navigator
 import com.gornostai.rickandmorty.presentation.screens.characterDetails.CharacterDetailsFragment
 import com.gornostai.rickandmorty.presentation.screens.characters.adapters.CharactersAdapter
-import com.gornostai.rickandmorty.presentation.contracts.HasCustomTitle
-import com.gornostai.rickandmorty.presentation.contracts.Navigator
-import com.gornostai.rickandmorty.presentation.contracts.navigator
 
 class CharactersFragment : Fragment(), HasCustomTitle {
 
@@ -26,6 +23,7 @@ class CharactersFragment : Fragment(), HasCustomTitle {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[CharactersViewModel::class.java]
+        viewModel.fetchData()
     }
 
     override fun onCreateView(
@@ -41,7 +39,9 @@ class CharactersFragment : Fragment(), HasCustomTitle {
         setupRecyclerView()
         setupData()
         setupLoading()
-        viewModel.fetchData()
+        binding.swipeToRefresh.setOnRefreshListener {
+            viewModel.refreshData()
+        }
     }
 
     override fun getTitleRes(): Int = R.string.characters_title
@@ -69,11 +69,7 @@ class CharactersFragment : Fragment(), HasCustomTitle {
 
     private fun setupLoading() {
         viewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.progressBar.visibility = if (it) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+            binding.swipeToRefresh.isRefreshing = it
         }
     }
 

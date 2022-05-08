@@ -1,7 +1,10 @@
 package com.gornostai.rickandmorty.presentation.screens.characters
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.gornostai.rickandmorty.data.repositories.CharactersRepositoryImpl
 import com.gornostai.rickandmorty.domain.entities.CharacterEntity
 import com.gornostai.rickandmorty.domain.usecases.GetCharactersListUseCase
@@ -28,10 +31,20 @@ class CharactersViewModel(application: Application) : AndroidViewModel(applicati
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
             var characters = getCharactersListUseCase.getCharactersList()
-            if (characters.isEmpty()){
+            if (characters.isEmpty()) {
                 loadCharactersUseCase.loadData()
                 characters = getCharactersListUseCase.getCharactersList()
             }
+            _isLoading.postValue(false)
+            _charactersList.postValue(characters)
+        }
+    }
+
+    fun refreshData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _isLoading.postValue(true)
+            loadCharactersUseCase.loadData()
+            val characters = getCharactersListUseCase.getCharactersList()
             _isLoading.postValue(false)
             _charactersList.postValue(characters)
         }

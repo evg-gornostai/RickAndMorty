@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gornostai.rickandmorty.R
@@ -24,6 +23,7 @@ class LocationsFragment : Fragment(), HasCustomTitle {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[LocationsViewModel::class.java]
+        viewModel.fetchData()
     }
 
     override fun onCreateView(
@@ -39,7 +39,9 @@ class LocationsFragment : Fragment(), HasCustomTitle {
         setupRecyclerView()
         setupData()
         setupLoading()
-        viewModel.fetchData()
+        binding.swipeToRefresh.setOnRefreshListener {
+            viewModel.refreshData()
+        }
     }
 
     override fun getTitleRes(): Int = R.string.locations_title
@@ -67,11 +69,7 @@ class LocationsFragment : Fragment(), HasCustomTitle {
 
     private fun setupLoading() {
         viewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.progressBar.visibility = if (it) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+            binding.swipeToRefresh.isRefreshing = it
         }
     }
 

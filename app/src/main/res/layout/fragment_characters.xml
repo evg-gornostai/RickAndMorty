@@ -6,13 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".presentation.screens.characters.CharactersFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_characters"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_to_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_characters"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <TextView
         android:id="@+id/tv_empty_message"
@@ -20,13 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/empty_message"
-        android:visibility="gone" />
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:visibility="gone" />
 
 </FrameLayout>
