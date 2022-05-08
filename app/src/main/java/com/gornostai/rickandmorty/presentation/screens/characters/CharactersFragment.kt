@@ -9,11 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.FragmentCharactersBinding
 import com.gornostai.rickandmorty.presentation.contracts.HasCustomTitle
+import com.gornostai.rickandmorty.presentation.contracts.HasFilterButton
+import com.gornostai.rickandmorty.presentation.contracts.HasSearchButton
 import com.gornostai.rickandmorty.presentation.contracts.navigator
 import com.gornostai.rickandmorty.presentation.screens.characterDetails.CharacterDetailsFragment
 import com.gornostai.rickandmorty.presentation.screens.characters.adapters.CharactersAdapter
 
-class CharactersFragment : Fragment(), HasCustomTitle {
+class CharactersFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchButton {
 
     private lateinit var binding: FragmentCharactersBinding
     private lateinit var viewModel: CharactersViewModel
@@ -45,6 +47,14 @@ class CharactersFragment : Fragment(), HasCustomTitle {
     }
 
     override fun getTitleRes(): Int = R.string.characters_title
+
+    override fun onFilterPressed() {
+
+    }
+
+    override fun onSearchPressed() {
+
+    }
 
     private fun setupRecyclerView() {
         binding.rvCharacters.adapter = adapter

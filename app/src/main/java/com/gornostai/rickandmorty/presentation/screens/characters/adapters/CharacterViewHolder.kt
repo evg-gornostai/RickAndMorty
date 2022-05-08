@@ -1,8 +1,10 @@
 package com.gornostai.rickandmorty.presentation.screens.characters.adapters
 
+import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.ItemChatacterBinding
 import com.gornostai.rickandmorty.domain.entities.CharacterEntity
 
@@ -23,6 +25,11 @@ class CharacterViewHolder(val binding: ItemChatacterBinding) :
             tvCharacterGender.text = model.gender
             tvCharacterSpecies.text = model.species
             tvCharacterStatus.text = model.status
+            if (model.status == "Alive"){
+                tvCharacterStatus.setTextColor(Color.GREEN)
+            } else {
+                tvCharacterStatus.setTextColor(Color.RED)
+            }
         }
     }
 }

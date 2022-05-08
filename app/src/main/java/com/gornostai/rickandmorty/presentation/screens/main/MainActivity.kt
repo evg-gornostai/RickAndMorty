@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.ActivityMainBinding
-import com.gornostai.rickandmorty.presentation.contracts.HasBackButton
-import com.gornostai.rickandmorty.presentation.contracts.HasCustomTitle
-import com.gornostai.rickandmorty.presentation.contracts.Navigator
+import com.gornostai.rickandmorty.presentation.contracts.*
 import com.gornostai.rickandmorty.presentation.screens.characters.CharactersFragment
 import com.gornostai.rickandmorty.presentation.screens.episodes.EpisodesFragment
 import com.gornostai.rickandmorty.presentation.screens.locations.LocationsFragment
@@ -37,6 +35,7 @@ class MainActivity : AppCompatActivity(), Navigator {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolBar)
 
         if (savedInstanceState == null) {
             setFragment(CharactersFragment.newInstance())
@@ -103,15 +102,27 @@ class MainActivity : AppCompatActivity(), Navigator {
         val fragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container)
 
         if (fragment is HasCustomTitle) {
-            supportActionBar?.title = getString(fragment.getTitleRes())
+            binding.tvTitle.text = getString(fragment.getTitleRes())
         } else {
-            supportActionBar?.title = getString(R.string.app_name)
+            binding.tvTitle.text = getString(R.string.app_name)
         }
 
         if (fragment is HasBackButton) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         } else {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        }
+
+        if (fragment is HasFilterButton) {
+            binding.btnFilter.visibility = View.VISIBLE
+        } else {
+            binding.btnFilter.visibility = View.GONE
+        }
+
+        if (fragment is HasSearchButton) {
+            binding.btnSearch.visibility = View.VISIBLE
+        } else {
+            binding.btnSearch.visibility = View.GONE
         }
 
     }

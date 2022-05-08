@@ -1,3 +1,7 @@
 package com.gornostai.rickandmorty.presentation.contracts
 
-interface HasBackButton
+interface HasFilterButton {
+
+    fun onFilterPressed()
+
+}

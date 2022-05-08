@@ -9,11 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.FragmentLocationsBinding
 import com.gornostai.rickandmorty.presentation.contracts.HasCustomTitle
+import com.gornostai.rickandmorty.presentation.contracts.HasFilterButton
+import com.gornostai.rickandmorty.presentation.contracts.HasSearchButton
 import com.gornostai.rickandmorty.presentation.contracts.navigator
 import com.gornostai.rickandmorty.presentation.screens.locationDetails.LocationDetailsFragment
 import com.gornostai.rickandmorty.presentation.screens.locations.adapters.LocationsAdapter
 
-class LocationsFragment : Fragment(), HasCustomTitle {
+class LocationsFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchButton {
 
     private lateinit var binding: FragmentLocationsBinding
     private lateinit var viewModel: LocationsViewModel
@@ -45,6 +47,14 @@ class LocationsFragment : Fragment(), HasCustomTitle {
     }
 
     override fun getTitleRes(): Int = R.string.locations_title
+
+    override fun onFilterPressed() {
+
+    }
+
+    override fun onSearchPressed() {
+
+    }
 
     private fun setupRecyclerView() {
         binding.rvLocations.adapter = adapter

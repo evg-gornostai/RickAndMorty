@@ -11,4 +11,7 @@
     <string name="location_details_title">Location details</string>
     <string name="episode_details_title">Episode details</string>
     <string name="empty_message">Empty.</string>
+    <string name="desc_filter_button">filter button</string>
+    <string name="desc_back_button">back button</string>
+    <string name="desc_search_button">search button</string>
 </resources>
