@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), Navigator {
             transaction.addToBackStack(null)
         }
         if (popBackStack) {
-            supportFragmentManager.popBackStack()
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
         transaction.replace(R.id.main_fragment_container, newFragment)
         transaction.commit()
