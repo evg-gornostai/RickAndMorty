@@ -59,8 +59,8 @@ class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchB
     }
 
     private fun setupRecyclerView() {
-        binding.rvEpisodes.layoutManager = GridLayoutManager(requireActivity(), 2)
-        binding.rvEpisodes.addItemDecoration(SpacesItemDecoration(50))
+        binding.rvEpisodes.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rvEpisodes.addItemDecoration(SpacesItemDecoration(16f, requireContext()))
         binding.rvEpisodes.adapter = adapter
         adapter.onEpisodeItemClickListener = {
             navigator().setFragment(

@@ -59,8 +59,8 @@ class CharactersFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearc
     }
 
     private fun setupRecyclerView() {
-        binding.rvCharacters.layoutManager = GridLayoutManager(requireActivity(), 2)
-        binding.rvCharacters.addItemDecoration(SpacesItemDecoration(50))
+        binding.rvCharacters.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rvCharacters.addItemDecoration(SpacesItemDecoration(16f, requireContext()))
         binding.rvCharacters.adapter = adapter
         adapter.onCharacterItemClickListener = {
             navigator().setFragment(

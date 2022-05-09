@@ -59,8 +59,8 @@ class LocationsFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearch
     }
 
     private fun setupRecyclerView() {
-        binding.rvLocations.layoutManager = GridLayoutManager(requireActivity(), 2)
-        binding.rvLocations.addItemDecoration(SpacesItemDecoration(50))
+        binding.rvLocations.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rvLocations.addItemDecoration(SpacesItemDecoration(16f, requireContext()))
         binding.rvLocations.adapter = adapter
         adapter.onLocationItemClickListener = {
             navigator().setFragment(
