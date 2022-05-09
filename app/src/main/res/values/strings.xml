@@ -23,5 +23,5 @@
     <string name="gender_character_gender">Gender: [CHARACTER_GENDER]</string>
     <string name="last_known_location_endpoint">Last known location endpoint</string>
     <string name="origin_location">Origin location</string>
-    <string name="episodes_in_which_this_character_appeared">Episodes in which this character appeared</string>
+    <string name="episodes_in_which_it_appeared">Episodes in which it appeared</string>
 </resources>

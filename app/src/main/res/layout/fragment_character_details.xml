@@ -137,7 +137,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:gravity="center_vertical"
-                    android:text="@string/episodes_in_which_this_character_appeared"
+                    android:text="@string/episodes_in_which_it_appeared"
                     android:textSize="18sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
