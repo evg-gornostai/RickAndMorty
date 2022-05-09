@@ -14,4 +14,14 @@
     <string name="desc_filter_button">filter button</string>
     <string name="desc_back_button">back button</string>
     <string name="desc_search_button">search button</string>
+    <string name="desc_character_image">character image</string>
+    <string name="information">Information</string>
+    <string name="name_character_name">Name: [CHARACTER_NAME]</string>
+    <string name="status_character_status">Status: [CHARACTER_STATUS]</string>
+    <string name="species_character_species">Species: [CHARACTER_SPECIES]</string>
+    <string name="type_character_type">Type: [CHARACTER_TYPE]</string>
+    <string name="gender_character_gender">Gender: [CHARACTER_GENDER]</string>
+    <string name="last_known_location_endpoint">Last known location endpoint</string>
+    <string name="origin_location">Origin location</string>
+    <string name="episodes_in_which_this_character_appeared">Episodes in which this character appeared</string>
 </resources>
