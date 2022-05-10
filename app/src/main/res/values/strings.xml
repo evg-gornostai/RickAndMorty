@@ -30,4 +30,7 @@
     <string name="number">Number:</string>
     <string name="type">Type:</string>
     <string name="dimension">Dimension:</string>
+    <string name="residents_divider">Residents</string>
+    <string name="type_location_type">Type: [LOCATION_TYPE]</string>
+    <string name="dimension_location_dimension">Dimension: [LOCATION_DIMENSION]</string>
 </resources>
