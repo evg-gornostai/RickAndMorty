@@ -73,6 +73,11 @@ class LocationDetailsFragment : Fragment(), HasCustomTitle, HasBackButton {
         }
 
         viewModel.charactersList.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                binding.tvEmptyMessage.visibility = View.VISIBLE
+            } else {
+                binding.tvEmptyMessage.visibility = View.GONE
+            }
             adapter.submitList(it)
         }
 
