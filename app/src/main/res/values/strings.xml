@@ -24,4 +24,10 @@
     <string name="last_known_location_endpoint">Last known location endpoint</string>
     <string name="origin_location">Origin location</string>
     <string name="episodes_in_which_it_appeared">Episodes in which it appeared</string>
+    <string name="species">Species:</string>
+    <string name="status">Status:</string>
+    <string name="gender">Gender:</string>
+    <string name="number">Number:</string>
+    <string name="type">Type:</string>
+    <string name="dimension">Dimension:</string>
 </resources>

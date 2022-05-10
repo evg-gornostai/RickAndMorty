@@ -9,7 +9,7 @@ class LocationViewHolder(val binding: ItemLocationBinding) :
     fun bind(model: LocationEntity) {
         binding.apply {
             tvLocationName.text = model.name
-            tvLocatoinType.text = model.type
+            tvLocationType.text = model.type
             tvLocationDimension.text = model.dimension
         }
     }

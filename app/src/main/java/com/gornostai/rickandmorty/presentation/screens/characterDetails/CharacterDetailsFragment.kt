@@ -105,7 +105,7 @@ class CharacterDetailsFragment : Fragment(), HasCustomTitle, HasBackButton {
                 includedOriginLocation.root.visibility = View.VISIBLE
                 includedOriginLocation.tvLocationDimension.text = it.dimension
                 includedOriginLocation.tvLocationName.text = it.name
-                includedOriginLocation.tvLocatoinType.text = it.type
+                includedOriginLocation.tvLocationType.text = it.type
             }
         }
 
@@ -114,7 +114,7 @@ class CharacterDetailsFragment : Fragment(), HasCustomTitle, HasBackButton {
                 includedLastKnownLocation.root.visibility = View.VISIBLE
                 includedLastKnownLocation.tvLocationName.text = it.name
                 includedLastKnownLocation.tvLocationDimension.text = it.dimension
-                includedLastKnownLocation.tvLocatoinType.text = it.type
+                includedLastKnownLocation.tvLocationType.text = it.type
             }
         }
 

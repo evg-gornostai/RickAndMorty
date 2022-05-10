@@ -7,48 +7,96 @@
     android:backgroundTint="@color/item_character_bg"
     app:cardCornerRadius="8dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="vertical">
+        android:layout_margin="8dp">
 
         <ImageView
             android:id="@+id/iv_character_image"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_characters" />
 
         <TextView
             android:id="@+id/tv_character_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_character_image"
             tools:text="character name" />
 
         <TextView
+            android:id="@+id/tv_character_species_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/species"
+            app:layout_constraintBottom_toBottomOf="@id/tv_character_species"
+            app:layout_constraintEnd_toStartOf="@id/tv_character_species"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_character_species" />
+
+        <TextView
+            android:id="@+id/tv_character_status_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/status"
+            app:layout_constraintBottom_toBottomOf="@id/tv_character_status"
+            app:layout_constraintEnd_toStartOf="@id/tv_character_status"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_character_status" />
+
+        <TextView
+            android:id="@+id/tv_character_gender_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/gender"
+            app:layout_constraintBottom_toBottomOf="@id/tv_character_gender"
+            app:layout_constraintEnd_toStartOf="@id/tv_character_gender"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_character_gender" />
+
+
+        <TextView
             android:id="@+id/tv_character_species"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_character_species_static"
+            app:layout_constraintTop_toBottomOf="@id/tv_character_name"
             tools:text="character species" />
 
         <TextView
             android:id="@+id/tv_character_status"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_character_status_static"
+            app:layout_constraintTop_toBottomOf="@id/tv_character_species"
             tools:text="character status" />
 
         <TextView
             android:id="@+id/tv_character_gender"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_character_gender_static"
+            app:layout_constraintTop_toBottomOf="@id/tv_character_status"
             tools:text="character gender" />
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
