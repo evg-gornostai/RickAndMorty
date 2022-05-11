@@ -1,155 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_to_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.screens.characterDetails.CharacterDetailsFragment">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_to_refresh"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/header_info"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:fitsSystemWindows="true"
+            app:elevation="0dp">
 
-            <LinearLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:minHeight="0dp"
+                app:layout_scrollFlags="scroll"
+                app:titleEnabled="false">
 
-                <ImageView
-                    android:id="@+id/iv_character_image"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:contentDescription="@string/desc_character_image"
-                    android:scaleType="centerCrop"
-                    tools:src="@drawable/ic_characters" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/information"
-                    android:textSize="18sp" />
+                    <ImageView
+                        android:id="@+id/iv_character_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:contentDescription="@string/desc_character_image"
+                        android:scaleType="centerCrop"
+                        tools:src="@drawable/ic_characters" />
 
-                <TextView
-                    android:id="@+id/tv_character_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="@string/name_character_name" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/information"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/tv_character_status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="@string/status_character_status" />
+                    <TextView
+                        android:id="@+id/tv_character_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="@string/name_character_name" />
 
-                <TextView
-                    android:id="@+id/tv_character_species"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="@string/species_character_species" />
+                    <TextView
+                        android:id="@+id/tv_character_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="@string/status_character_status" />
 
-                <TextView
-                    android:id="@+id/tv_character_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="@string/type_character_type" />
+                    <TextView
+                        android:id="@+id/tv_character_species"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="@string/species_character_species" />
 
-                <TextView
-                    android:id="@+id/tv_character_gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="@string/gender_character_gender" />
+                    <TextView
+                        android:id="@+id/tv_character_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="@string/type_character_type" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/last_known_location_endpoint"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/tv_character_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="@string/gender_character_gender" />
 
-                <include
-                    android:id="@+id/included_last_known_location"
-                    layout="@layout/item_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:visibility="gone" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/last_known_location_endpoint"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/origin_location"
-                    android:textSize="18sp" />
+                    <include
+                        android:id="@+id/included_last_known_location"
+                        layout="@layout/item_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:visibility="gone" />
 
-                <include
-                    android:id="@+id/included_origin_location"
-                    layout="@layout/item_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:visibility="gone" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/origin_location"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/episodes_in_which_it_appeared"
-                    android:textSize="18sp" />
+                    <include
+                        android:id="@+id/included_origin_location"
+                        layout="@layout/item_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:visibility="gone" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_episodes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_episode" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/episodes_in_which_it_appeared"
+                        android:textSize="18sp" />
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-</FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_episodes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/item_episode" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

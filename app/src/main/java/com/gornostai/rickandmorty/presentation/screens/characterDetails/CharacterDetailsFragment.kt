@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
 import com.gornostai.rickandmorty.R
 import com.gornostai.rickandmorty.databinding.FragmentCharacterDetailsBinding
 import com.gornostai.rickandmorty.presentation.contracts.HasBackButton
@@ -50,6 +51,11 @@ class CharacterDetailsFragment : Fragment(), HasCustomTitle, HasBackButton {
         binding.swipeToRefresh.setOnRefreshListener {
             loadData()
         }
+
+        binding.headerInfo.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener
+        { _, verticalOffset ->
+            binding.swipeToRefresh.isEnabled = verticalOffset == 0
+        })
 
     }
 
