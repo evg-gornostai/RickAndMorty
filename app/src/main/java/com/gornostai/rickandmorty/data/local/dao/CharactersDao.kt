@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.gornostai.rickandmorty.data.local.models.CharacterDbModel
 
 @Dao
-interface CharacterDao {
+interface CharactersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCharacter(characterDbModel: CharacterDbModel)

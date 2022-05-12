@@ -1,5 +1,6 @@
 package com.gornostai.rickandmorty.presentation.screens.episodes
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,17 +17,31 @@ import com.gornostai.rickandmorty.presentation.contracts.navigator
 import com.gornostai.rickandmorty.presentation.screens.episodeDetails.EpisodeDetailsFragment
 import com.gornostai.rickandmorty.presentation.screens.episodes.adapters.EpisodesAdapter
 import com.gornostai.rickandmorty.presentation.screens.episodes.adapters.SpacesItemDecoration
+import com.gornostai.rickandmorty.utils.App
+import com.gornostai.rickandmorty.utils.ViewModelFactory
+import javax.inject.Inject
 
 class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchButton {
 
     private lateinit var binding: FragmentEpisodesBinding
     private lateinit var viewModel: EpisodesViewModel
 
-    val adapter: EpisodesAdapter by lazy { EpisodesAdapter() }
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    val adapter by lazy { EpisodesAdapter() }
+    private val component by lazy {
+        (requireActivity().application as App).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[EpisodesViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[EpisodesViewModel::class.java]
         viewModel.fetchData()
     }
 

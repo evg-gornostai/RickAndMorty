@@ -6,13 +6,18 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import com.gornostai.rickandmorty.data.local.AppDataBase
+import com.gornostai.rickandmorty.data.local.dao.LocationsDao
 import com.gornostai.rickandmorty.data.mappers.LocationMapper
 import com.gornostai.rickandmorty.data.remote.ApiFactory
+import com.gornostai.rickandmorty.data.remote.services.LocationsService
 import com.gornostai.rickandmorty.domain.entities.LocationEntity
 import com.gornostai.rickandmorty.domain.repositories.LocationsRepository
+import javax.inject.Inject
 
-class LocationsRepositoryImpl(
-    val application: Application
+class LocationsRepositoryImpl @Inject constructor(
+    private val application: Application,
+    private val locationsDb: LocationsDao,
+    private val locationsService: LocationsService
 ) : LocationsRepository {
 
     val db = AppDataBase.getInstance(application).locationDao()

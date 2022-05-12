@@ -1,23 +1,22 @@
 package com.gornostai.rickandmorty.presentation.screens.locationDetails
 
-import android.app.Application
-import androidx.lifecycle.*
-import com.gornostai.rickandmorty.data.repositories.CharactersRepositoryImpl
-import com.gornostai.rickandmorty.data.repositories.LocationsRepositoryImpl
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.gornostai.rickandmorty.domain.entities.CharacterEntity
 import com.gornostai.rickandmorty.domain.entities.LocationEntity
 import com.gornostai.rickandmorty.domain.usecases.GetCharacterItemUseCase
 import com.gornostai.rickandmorty.domain.usecases.GetLocationItemUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LocationDetailsViewModel(application: Application) : AndroidViewModel(application) {
+class LocationDetailsViewModel @Inject constructor(
+    private val getLocationItemUseCase: GetLocationItemUseCase,
+    private val getCharacterItemUseCase: GetCharacterItemUseCase
+) : ViewModel() {
 
-    private val locationsRepository = LocationsRepositoryImpl(application)
-    private val charactersRepository = CharactersRepositoryImpl(application)
-
-    private val getLocationItemUseCase = GetLocationItemUseCase(locationsRepository)
-    private val getCharacterItemUseCase = GetCharacterItemUseCase(charactersRepository)
 
     private val _locationItem = MutableLiveData<LocationEntity>()
     val locationItem: LiveData<LocationEntity>

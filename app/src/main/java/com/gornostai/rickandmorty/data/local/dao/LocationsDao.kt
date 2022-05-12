@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.gornostai.rickandmorty.data.local.models.LocationDbModel
 
 @Dao
-interface LocationDao {
+interface LocationsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addLocation(locationDbModel: LocationDbModel)

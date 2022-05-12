@@ -6,13 +6,18 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import com.gornostai.rickandmorty.data.local.AppDataBase
+import com.gornostai.rickandmorty.data.local.dao.CharactersDao
 import com.gornostai.rickandmorty.data.mappers.CharacterMapper
 import com.gornostai.rickandmorty.data.remote.ApiFactory
+import com.gornostai.rickandmorty.data.remote.services.CharactersService
 import com.gornostai.rickandmorty.domain.entities.CharacterEntity
 import com.gornostai.rickandmorty.domain.repositories.CharactersRepository
+import javax.inject.Inject
 
-class CharactersRepositoryImpl(
-    val application: Application
+class CharactersRepositoryImpl @Inject constructor(
+    private val application: Application,
+    private val charactersDb: CharactersDao,
+    private val charactersService: CharactersService
 ) : CharactersRepository {
 
     val db = AppDataBase.getInstance(application).characterDao()

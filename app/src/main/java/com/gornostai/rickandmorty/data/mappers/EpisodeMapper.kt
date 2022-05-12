@@ -3,7 +3,7 @@ package com.gornostai.rickandmorty.data.mappers
 import com.gornostai.rickandmorty.data.local.models.EpisodeDbModel
 import com.gornostai.rickandmorty.data.remote.models.episode.EpisodeDto
 import com.gornostai.rickandmorty.domain.entities.EpisodeEntity
-import com.gornostai.rickandmorty.utills.UrlToIdParser
+import com.gornostai.rickandmorty.utils.UrlToIdParser
 
 class EpisodeMapper {
 

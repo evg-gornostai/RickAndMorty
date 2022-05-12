@@ -3,7 +3,7 @@ package com.gornostai.rickandmorty.data.mappers
 import com.gornostai.rickandmorty.data.local.models.CharacterDbModel
 import com.gornostai.rickandmorty.data.remote.models.character.CharacterDto
 import com.gornostai.rickandmorty.domain.entities.CharacterEntity
-import com.gornostai.rickandmorty.utills.UrlToIdParser
+import com.gornostai.rickandmorty.utils.UrlToIdParser
 
 class CharacterMapper {
 

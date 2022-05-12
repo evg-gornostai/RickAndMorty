@@ -3,7 +3,7 @@ package com.gornostai.rickandmorty.data.mappers
 import com.gornostai.rickandmorty.data.local.models.LocationDbModel
 import com.gornostai.rickandmorty.data.remote.models.location.LocationDto
 import com.gornostai.rickandmorty.domain.entities.LocationEntity
-import com.gornostai.rickandmorty.utills.UrlToIdParser
+import com.gornostai.rickandmorty.utils.UrlToIdParser
 
 class LocationMapper {
 

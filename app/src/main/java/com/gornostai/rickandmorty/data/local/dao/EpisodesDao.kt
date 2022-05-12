@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.gornostai.rickandmorty.data.local.models.EpisodeDbModel
 
 @Dao
-interface EpisodeDao {
+interface EpisodesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addEpisode(episodeDbModel: EpisodeDbModel)

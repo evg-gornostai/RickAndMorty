@@ -1,10 +1,13 @@
 package com.gornostai.rickandmorty.domain.usecases
 
 import com.gornostai.rickandmorty.domain.repositories.CharactersRepository
+import javax.inject.Inject
 
-class LoadCharactersUseCase(private val repository: CharactersRepository) {
+class LoadCharactersUseCase @Inject constructor(
+    private val repository: CharactersRepository
+) {
 
-    suspend fun loadData(){
+    suspend fun loadData() {
         repository.loadData()
     }
 

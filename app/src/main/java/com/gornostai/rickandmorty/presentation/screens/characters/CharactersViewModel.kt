@@ -1,23 +1,20 @@
 package com.gornostai.rickandmorty.presentation.screens.characters
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gornostai.rickandmorty.data.repositories.CharactersRepositoryImpl
 import com.gornostai.rickandmorty.domain.entities.CharacterEntity
 import com.gornostai.rickandmorty.domain.usecases.GetCharactersListUseCase
 import com.gornostai.rickandmorty.domain.usecases.LoadCharactersUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharactersViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository = CharactersRepositoryImpl(application)
-
-    private val getCharactersListUseCase = GetCharactersListUseCase(repository)
-    private val loadCharactersUseCase = LoadCharactersUseCase(repository)
+class CharactersViewModel @Inject constructor(
+    private val getCharactersListUseCase: GetCharactersListUseCase,
+    private val loadCharactersUseCase: LoadCharactersUseCase,
+) : ViewModel() {
 
     private val _charactersList = MutableLiveData<List<CharacterEntity>>()
     val charactersList: LiveData<List<CharacterEntity>>

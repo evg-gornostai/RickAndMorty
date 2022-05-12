@@ -1,4 +1,4 @@
-package com.gornostai.rickandmorty.utills
+package com.gornostai.rickandmorty.utils
 
 object UrlToIdParser {
 

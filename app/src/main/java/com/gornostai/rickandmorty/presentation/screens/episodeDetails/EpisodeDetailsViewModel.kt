@@ -1,9 +1,8 @@
 package com.gornostai.rickandmorty.presentation.screens.episodeDetails
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gornostai.rickandmorty.data.repositories.CharactersRepositoryImpl
 import com.gornostai.rickandmorty.data.repositories.EpisodesRepositoryImpl
@@ -13,14 +12,12 @@ import com.gornostai.rickandmorty.domain.usecases.GetCharacterItemUseCase
 import com.gornostai.rickandmorty.domain.usecases.GetEpisodeItemUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EpisodeDetailsViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val episodesRepository = EpisodesRepositoryImpl(application)
-    private val charactersRepository = CharactersRepositoryImpl(application)
-
-    private val getEpisodeItemUseCase = GetEpisodeItemUseCase(episodesRepository)
-    private val getCharacterItemUseCase = GetCharacterItemUseCase(charactersRepository)
+class EpisodeDetailsViewModel @Inject constructor(
+    private val getEpisodeItemUseCase: GetEpisodeItemUseCase,
+    private val getCharacterItemUseCase: GetCharacterItemUseCase
+) : ViewModel() {
 
     private val _episodeItem = MutableLiveData<EpisodeEntity>()
     val episodeItem: LiveData<EpisodeEntity>

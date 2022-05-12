@@ -1,5 +1,6 @@
 package com.gornostai.rickandmorty.presentation.screens.locationDetails
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,17 +17,31 @@ import com.gornostai.rickandmorty.presentation.contracts.navigator
 import com.gornostai.rickandmorty.presentation.screens.characterDetails.CharacterDetailsFragment
 import com.gornostai.rickandmorty.presentation.screens.locationDetails.adapters.CharactersAdapter
 import com.gornostai.rickandmorty.presentation.screens.locationDetails.adapters.SpacesItemDecoration
+import com.gornostai.rickandmorty.utils.App
+import com.gornostai.rickandmorty.utils.ViewModelFactory
+import javax.inject.Inject
 
 class LocationDetailsFragment : Fragment(), HasCustomTitle, HasBackButton {
 
     private lateinit var binding: FragmentLocationDetailsBinding
     private lateinit var viewModel: LocationDetailsViewModel
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private val adapter by lazy { CharactersAdapter() }
+    private val component by lazy {
+        (requireActivity().application as App).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[LocationDetailsViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[LocationDetailsViewModel::class.java]
         loadData()
     }
 
