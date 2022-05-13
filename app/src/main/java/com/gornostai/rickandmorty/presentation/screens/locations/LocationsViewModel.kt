@@ -5,17 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gornostai.rickandmorty.domain.entities.LocationEntity
+import com.gornostai.rickandmorty.domain.entities.LocationFilterEntity
+import com.gornostai.rickandmorty.domain.usecases.GetFilteredLocationListUseCase
 import com.gornostai.rickandmorty.domain.usecases.GetLocationsListUseCase
-import com.gornostai.rickandmorty.domain.usecases.LoadLocationsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LocationsViewModel @Inject constructor(
     private val getLocationsUseCase: GetLocationsListUseCase,
-    private val loadLocationsUseCase: LoadLocationsUseCase
+    private val getFilteredLocationListUseCase: GetFilteredLocationListUseCase
 ) : ViewModel() {
 
+    var filter = LocationFilterEntity()
 
     private val _locationsList = MutableLiveData<List<LocationEntity>>()
     val locationsList: LiveData<List<LocationEntity>>
@@ -26,25 +28,23 @@ class LocationsViewModel @Inject constructor(
         get() = _isLoading
 
     fun fetchData() {
+        filter = LocationFilterEntity()
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
-            var locations = getLocationsUseCase.getLocationsList()
-            if (locations.isEmpty()) {
-                loadLocationsUseCase.loadData()
-                locations = getLocationsUseCase.getLocationsList()
-            }
+            val locations = getLocationsUseCase.getLocationsList()
             _isLoading.postValue(false)
             _locationsList.postValue(locations)
         }
     }
 
-    fun refreshData() {
+    fun getFilteredData(filter: LocationFilterEntity) {
+        this.filter = filter
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
-            loadLocationsUseCase.loadData()
-            val locations = getLocationsUseCase.getLocationsList()
+            val filteredLocations =
+                getFilteredLocationListUseCase.getFilteredLocationsList(filter)
             _isLoading.postValue(false)
-            _locationsList.postValue(locations)
+            _locationsList.postValue(filteredLocations)
         }
     }
 

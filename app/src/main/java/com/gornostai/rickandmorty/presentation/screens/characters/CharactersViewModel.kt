@@ -5,16 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gornostai.rickandmorty.domain.entities.CharacterEntity
+import com.gornostai.rickandmorty.domain.entities.CharacterFilterEntity
 import com.gornostai.rickandmorty.domain.usecases.GetCharactersListUseCase
-import com.gornostai.rickandmorty.domain.usecases.LoadCharactersUseCase
+import com.gornostai.rickandmorty.domain.usecases.GetFilteredCharactersListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharactersViewModel @Inject constructor(
     private val getCharactersListUseCase: GetCharactersListUseCase,
-    private val loadCharactersUseCase: LoadCharactersUseCase,
+    private val getFilteredCharactersListUseCase: GetFilteredCharactersListUseCase
 ) : ViewModel() {
+
+    var filter = CharacterFilterEntity()
 
     private val _charactersList = MutableLiveData<List<CharacterEntity>>()
     val charactersList: LiveData<List<CharacterEntity>>
@@ -25,25 +28,23 @@ class CharactersViewModel @Inject constructor(
         get() = _isLoading
 
     fun fetchData() {
+        filter = CharacterFilterEntity()
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
-            var characters = getCharactersListUseCase.getCharactersList()
-            if (characters.isEmpty()) {
-                loadCharactersUseCase.loadData()
-                characters = getCharactersListUseCase.getCharactersList()
-            }
+            val characters = getCharactersListUseCase.getCharactersList()
             _isLoading.postValue(false)
             _charactersList.postValue(characters)
         }
     }
 
-    fun refreshData() {
+    fun getFilteredData(filter: CharacterFilterEntity) {
+        this.filter = filter
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
-            loadCharactersUseCase.loadData()
-            val characters = getCharactersListUseCase.getCharactersList()
+            val filteredCharacters =
+                getFilteredCharactersListUseCase.getFilteredCharactersList(filter)
             _isLoading.postValue(false)
-            _charactersList.postValue(characters)
+            _charactersList.postValue(filteredCharacters)
         }
     }
 

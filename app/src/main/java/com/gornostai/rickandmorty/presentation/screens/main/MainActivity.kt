@@ -114,12 +114,14 @@ class MainActivity : AppCompatActivity(), Navigator {
         }
 
         if (fragment is HasFilterButton) {
+            binding.btnFilter.setOnClickListener { fragment.onFilterPressed() }
             binding.btnFilter.visibility = View.VISIBLE
         } else {
             binding.btnFilter.visibility = View.GONE
         }
 
         if (fragment is HasSearchButton) {
+            binding.btnSearch.setOnClickListener { fragment.onSearchPressed() }
             binding.btnSearch.visibility = View.VISIBLE
         } else {
             binding.btnSearch.visibility = View.GONE

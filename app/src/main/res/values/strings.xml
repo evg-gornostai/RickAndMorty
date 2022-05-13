@@ -35,4 +35,25 @@
     <string name="dimension_location_dimension">Dimension: [LOCATION_DIMENSION]</string>
     <string name="episode_episode">Episode: [EPISODE_EPISODE]</string>
     <string name="episode_air_date_episode">Air date: [EPISODE_AIR_DATE]</string>
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
+    <string name="dialog_locations_filter">Locations filter</string>
+    <string name="dialog_episodes_filter">Episodes filter</string>
+    <string name="dialog_characters_filter">Characters filter</string>
+    <string name="location_name">Location Name</string>
+    <string name="location_type">Location Type</string>
+    <string name="location_dimension">Location Dimension</string>
+    <string name="episode_code">Episode Code</string>
+    <string name="episode_name">Episode Name</string>
+    <string name="character_name">Character Name</string>
+    <string name="character_species">Character Species</string>
+    <string name="character_type">Character Type</string>
+    <string name="alive">Alive</string>
+    <string name="dead">Dead</string>
+    <string name="unknown">Unknown</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="genderless">Genderless</string>
+
 </resources>

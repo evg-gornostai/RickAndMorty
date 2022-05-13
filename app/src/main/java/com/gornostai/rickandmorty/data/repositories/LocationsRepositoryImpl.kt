@@ -7,10 +7,12 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import com.gornostai.rickandmorty.data.local.AppDataBase
 import com.gornostai.rickandmorty.data.local.dao.LocationsDao
+import com.gornostai.rickandmorty.data.local.models.LocationDbModel
 import com.gornostai.rickandmorty.data.mappers.LocationMapper
 import com.gornostai.rickandmorty.data.remote.ApiFactory
 import com.gornostai.rickandmorty.data.remote.services.LocationsService
 import com.gornostai.rickandmorty.domain.entities.LocationEntity
+import com.gornostai.rickandmorty.domain.entities.LocationFilterEntity
 import com.gornostai.rickandmorty.domain.repositories.LocationsRepository
 import javax.inject.Inject
 
@@ -23,7 +25,7 @@ class LocationsRepositoryImpl @Inject constructor(
     val db = AppDataBase.getInstance(application).locationDao()
     val service = ApiFactory.locationService
 
-    override suspend fun loadData() {
+    suspend fun loadData() {
         if (isOnline(application)) {
             var response = service.getLocationsList()
             for (i in response.results) {
@@ -39,14 +41,32 @@ class LocationsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getLocationsList(): List<LocationEntity> {
-        return db.getLocationsList().map {
-            LocationMapper().mapDbModelToEntity(it)
+        var data = db.getLocationsList()
+        if (data.isNotEmpty()){
+            return  data.map { LocationMapper().mapDbModelToEntity(it) }
+        } else {
+            loadData()
+            data = db.getLocationsList()
+            return  data.map { LocationMapper().mapDbModelToEntity(it) }
         }
     }
 
     override suspend fun getLocationItem(locationItemId: Int): LocationEntity {
         val dbModel = db.getLocation(locationItemId)
         return LocationMapper().mapDbModelToEntity(dbModel)
+    }
+
+    override suspend fun getFilteredLocationsList(filter: LocationFilterEntity): List<LocationEntity> {
+        val filteredListResponse = locationsService.getFilteredLocationsList(
+            name = filter.name,
+            type = filter.type,
+            dimension = filter.dimension
+        )
+        var temp: List<LocationDbModel>? = null
+        if (filteredListResponse.isSuccessful){
+            temp = filteredListResponse.body()?.results?.map { LocationMapper().mapDtoToDbModel(it) }
+        }
+        return temp?.map { LocationMapper().mapDbModelToEntity(it) } ?: listOf()
     }
 
     private fun isOnline(application: Application): Boolean {

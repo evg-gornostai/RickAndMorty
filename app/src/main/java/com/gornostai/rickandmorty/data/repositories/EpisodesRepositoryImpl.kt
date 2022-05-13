@@ -7,10 +7,13 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import com.gornostai.rickandmorty.data.local.AppDataBase
 import com.gornostai.rickandmorty.data.local.dao.EpisodesDao
+import com.gornostai.rickandmorty.data.local.models.EpisodeDbModel
 import com.gornostai.rickandmorty.data.mappers.EpisodeMapper
 import com.gornostai.rickandmorty.data.remote.ApiFactory
+import com.gornostai.rickandmorty.data.remote.models.episode.EpisodesListDto
 import com.gornostai.rickandmorty.data.remote.services.EpisodesService
 import com.gornostai.rickandmorty.domain.entities.EpisodeEntity
+import com.gornostai.rickandmorty.domain.entities.EpisodeFilterEntity
 import com.gornostai.rickandmorty.domain.repositories.EpisodesRepository
 import javax.inject.Inject
 
@@ -23,7 +26,7 @@ class EpisodesRepositoryImpl @Inject constructor(
     val db = AppDataBase.getInstance(application).episodeDao()
     val service = ApiFactory.episodeService
 
-    override suspend fun loadData() {
+    suspend fun loadData() {
         if (isOnline(application)) {
             var response = service.getEpisodesList()
             for (i in response.results) {
@@ -39,14 +42,33 @@ class EpisodesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getEpisodesList(): List<EpisodeEntity> {
-        return db.getEpisodesList().map {
-            EpisodeMapper().mapDbModelToEntity(it)
+        var data = db.getEpisodesList()
+        if (data.isNotEmpty()){
+            return data.map { EpisodeMapper().mapDbModelToEntity(it) }
+        } else {
+            loadData()
+            data = db.getEpisodesList()
+            return data.map { EpisodeMapper().mapDbModelToEntity(it) }
         }
     }
 
     override suspend fun getEpisodeItem(episodeItemId: Int): EpisodeEntity {
         val dbModel = db.getEpisode(episodeItemId)
         return EpisodeMapper().mapDbModelToEntity(dbModel)
+    }
+
+    override suspend fun getFilteredEpisodesList(filter: EpisodeFilterEntity): List<EpisodeEntity> {
+        val filteredListResponse = episodesService.getFilteredEpisodesList(
+            name = filter.name,
+            episode = filter.code
+        )
+        var temp: List<EpisodeDbModel>? = null
+
+        if (filteredListResponse.isSuccessful){
+            temp = filteredListResponse.body()?.results?.map { EpisodeMapper().mapDtoToDbModel(it) }
+        }
+
+        return temp?.map { EpisodeMapper().mapDbModelToEntity(it) } ?: listOf()
     }
 
     private fun isOnline(application: Application): Boolean {

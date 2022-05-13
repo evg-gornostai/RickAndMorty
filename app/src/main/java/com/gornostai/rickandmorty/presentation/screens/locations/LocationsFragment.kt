@@ -1,6 +1,8 @@
 package com.gornostai.rickandmorty.presentation.screens.locations
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gornostai.rickandmorty.R
+import com.gornostai.rickandmorty.databinding.DialogLocationsFilterBinding
 import com.gornostai.rickandmorty.databinding.FragmentLocationsBinding
+import com.gornostai.rickandmorty.domain.entities.LocationFilterEntity
 import com.gornostai.rickandmorty.presentation.contracts.HasCustomTitle
 import com.gornostai.rickandmorty.presentation.contracts.HasFilterButton
 import com.gornostai.rickandmorty.presentation.contracts.HasSearchButton
@@ -59,14 +63,14 @@ class LocationsFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearch
         setupData()
         setupLoading()
         binding.swipeToRefresh.setOnRefreshListener {
-            viewModel.refreshData()
+            viewModel.fetchData()
         }
     }
 
     override fun getTitleRes(): Int = R.string.locations_title
 
     override fun onFilterPressed() {
-
+        showFilterDialog(viewModel.filter)
     }
 
     override fun onSearchPressed() {
@@ -100,6 +104,39 @@ class LocationsFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearch
         viewModel.isLoading.observe(viewLifecycleOwner) {
             binding.swipeToRefresh.isRefreshing = it
         }
+    }
+
+    private fun showFilterDialog(filter: LocationFilterEntity) {
+        val binding = DialogLocationsFilterBinding.inflate(layoutInflater)
+        binding.edLocationName.setText(filter.name)
+        binding.edLocationDimension.setText(filter.dimension)
+        binding.edLocationType.setText(filter.type)
+        val listener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    viewModel.getFilteredData(
+                        LocationFilterEntity(
+                            name = binding.edLocationName.text.toString(),
+                            dimension = binding.edLocationDimension.text.toString(),
+                            type = binding.edLocationType.text.toString()
+                        )
+                    )
+                }
+                DialogInterface.BUTTON_NEGATIVE -> {}
+                DialogInterface.BUTTON_NEUTRAL -> {
+                    viewModel.fetchData()
+                }
+            }
+        }
+        val dialog = AlertDialog.Builder(requireContext())
+            .setCancelable(true)
+            .setView(binding.root)
+            .setTitle(getString(R.string.dialog_locations_filter))
+            .setPositiveButton(getString(R.string.apply), listener)
+            .setNegativeButton(getString(R.string.cancel), listener)
+            .setNeutralButton(getString(R.string.clear), listener)
+            .create()
+        dialog.show()
     }
 
     companion object {

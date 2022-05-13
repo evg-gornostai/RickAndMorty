@@ -1,6 +1,8 @@
 package com.gornostai.rickandmorty.presentation.screens.episodes
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gornostai.rickandmorty.R
+import com.gornostai.rickandmorty.databinding.DialogEpisodesFilterBinding
 import com.gornostai.rickandmorty.databinding.FragmentEpisodesBinding
+import com.gornostai.rickandmorty.domain.entities.EpisodeFilterEntity
 import com.gornostai.rickandmorty.presentation.contracts.HasCustomTitle
 import com.gornostai.rickandmorty.presentation.contracts.HasFilterButton
 import com.gornostai.rickandmorty.presentation.contracts.HasSearchButton
@@ -29,7 +33,7 @@ class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchB
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    val adapter by lazy { EpisodesAdapter() }
+    private val adapter by lazy { EpisodesAdapter() }
     private val component by lazy {
         (requireActivity().application as App).component
     }
@@ -59,14 +63,14 @@ class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchB
         setupData()
         setupLoading()
         binding.swipeToRefresh.setOnRefreshListener {
-            viewModel.refreshData()
+            viewModel.fetchData()
         }
     }
 
     override fun getTitleRes(): Int = R.string.episodes_title
 
     override fun onFilterPressed() {
-
+        showFilterDialog(viewModel.filter)
     }
 
     override fun onSearchPressed() {
@@ -100,6 +104,37 @@ class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchB
         viewModel.isLoading.observe(viewLifecycleOwner) {
             binding.swipeToRefresh.isRefreshing = it
         }
+    }
+
+    private fun showFilterDialog(filter: EpisodeFilterEntity) {
+        val binding = DialogEpisodesFilterBinding.inflate(layoutInflater)
+        binding.edEpisodeName.setText(filter.name)
+        binding.edEpisodeCode.setText(filter.code)
+        val listener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    viewModel.getFilteredData(
+                        EpisodeFilterEntity(
+                            name = binding.edEpisodeName.text.toString(),
+                            code = binding.edEpisodeCode.text.toString()
+                        )
+                    )
+                }
+                DialogInterface.BUTTON_NEGATIVE -> {}
+                DialogInterface.BUTTON_NEUTRAL -> {
+                    viewModel.fetchData()
+                }
+            }
+        }
+        val dialog = AlertDialog.Builder(requireContext())
+            .setCancelable(true)
+            .setView(binding.root)
+            .setTitle(getString(R.string.dialog_episodes_filter))
+            .setPositiveButton(getString(R.string.apply), listener)
+            .setNegativeButton(getString(R.string.cancel), listener)
+            .setNeutralButton(getString(R.string.clear), listener)
+            .create()
+        dialog.show()
     }
 
     companion object {

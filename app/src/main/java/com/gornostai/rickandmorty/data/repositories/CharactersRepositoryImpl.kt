@@ -7,10 +7,12 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import com.gornostai.rickandmorty.data.local.AppDataBase
 import com.gornostai.rickandmorty.data.local.dao.CharactersDao
+import com.gornostai.rickandmorty.data.local.models.CharacterDbModel
 import com.gornostai.rickandmorty.data.mappers.CharacterMapper
 import com.gornostai.rickandmorty.data.remote.ApiFactory
 import com.gornostai.rickandmorty.data.remote.services.CharactersService
 import com.gornostai.rickandmorty.domain.entities.CharacterEntity
+import com.gornostai.rickandmorty.domain.entities.CharacterFilterEntity
 import com.gornostai.rickandmorty.domain.repositories.CharactersRepository
 import javax.inject.Inject
 
@@ -23,7 +25,7 @@ class CharactersRepositoryImpl @Inject constructor(
     val db = AppDataBase.getInstance(application).characterDao()
     val service = ApiFactory.characterService
 
-    override suspend fun loadData() {
+    suspend fun loadData() {
         if (isOnline(application)) {
             var response = service.getCharactersList()
             for (i in response.results) {
@@ -39,8 +41,13 @@ class CharactersRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCharactersList(): List<CharacterEntity> {
-        return db.getCharactersList().map {
-            CharacterMapper().mapDbModelToEntity(it)
+        var data = db.getCharactersList()
+        if (data.isNotEmpty()) {
+            return data.map { CharacterMapper().mapDbModelToEntity(it) }
+        } else {
+            loadData()
+            data = db.getCharactersList()
+            return data.map { CharacterMapper().mapDbModelToEntity(it) }
         }
     }
 
@@ -48,6 +55,23 @@ class CharactersRepositoryImpl @Inject constructor(
     override suspend fun getCharacterItem(characterItemId: Int): CharacterEntity {
         val dbModel = db.getCharacter(characterItemId)
         return CharacterMapper().mapDbModelToEntity(dbModel)
+    }
+
+    override suspend fun getFilteredCharactersList(filter: CharacterFilterEntity): List<CharacterEntity> {
+        val filteredListResponse = charactersService.getFilteredCharactersList(
+            name = filter.name,
+            status = filter.status,
+            species = filter.species,
+            type = filter.type,
+            gender = filter.gender
+        )
+        var temp: List<CharacterDbModel>? = null
+
+        if (filteredListResponse.isSuccessful){
+            temp = filteredListResponse.body()?.results?.map { CharacterMapper().mapDtoToDbModel(it) }
+        }
+
+        return temp?.map { CharacterMapper().mapDbModelToEntity(it) } ?: listOf()
     }
 
     private fun isOnline(application: Application): Boolean {
