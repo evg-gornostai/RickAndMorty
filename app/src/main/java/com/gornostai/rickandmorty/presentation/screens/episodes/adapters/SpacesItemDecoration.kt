@@ -20,12 +20,7 @@ class SpacesItemDecoration(
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        if (parent.getChildLayoutPosition(view) == 0 || parent.getChildLayoutPosition(view) == 1) {
-            outRect.top = margin
-        } else {
-            outRect.top = 0
-        }
-
+        outRect.top = margin
         if (parent.getChildLayoutPosition(view) % 2 == 0) {
             outRect.right = margin / 2
             outRect.left = margin
@@ -33,7 +28,6 @@ class SpacesItemDecoration(
             outRect.right = margin
             outRect.left = margin / 2
         }
-
-        outRect.bottom = margin
+        outRect.bottom = 0
     }
 }
