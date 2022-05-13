@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +33,7 @@ class CharactersFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearc
 
     private lateinit var binding: FragmentCharactersBinding
     private lateinit var viewModel: CharactersViewModel
+    private lateinit var textWatcher: TextWatcher
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -64,7 +67,11 @@ class CharactersFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearc
         setupRecyclerView()
         setupData()
         setupLoading()
+        setupTextWatcher()
         binding.swipeToRefresh.setOnRefreshListener {
+            if (binding.inputLayoutCharactersSearch.visibility == View.VISIBLE) {
+                hideSearch()
+            }
             viewModel.fetchData()
         }
     }
@@ -76,7 +83,12 @@ class CharactersFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearc
     }
 
     override fun onSearchPressed() {
-
+        if (binding.inputLayoutCharactersSearch.visibility == View.GONE) {
+            showSearch()
+        } else {
+            hideSearch()
+            viewModel.fetchData()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -106,6 +118,31 @@ class CharactersFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearc
         viewModel.isLoading.observe(viewLifecycleOwner) {
             binding.swipeToRefresh.isRefreshing = it
         }
+    }
+
+    private fun setupTextWatcher() {
+        textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(query: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(query: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                viewModel.getFilteredData(CharacterFilterEntity(name = query.toString()))
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        }
+    }
+
+    private fun showSearch() {
+        binding.inputLayoutCharactersSearch.visibility = View.VISIBLE
+        binding.edCharactersSearch.addTextChangedListener(textWatcher)
+    }
+
+    private fun hideSearch() {
+        binding.edCharactersSearch.removeTextChangedListener(textWatcher)
+        binding.edCharactersSearch.setText("")
+        binding.inputLayoutCharactersSearch.visibility = View.GONE
     }
 
     private fun showFilterDialog(filter: CharacterFilterEntity) {

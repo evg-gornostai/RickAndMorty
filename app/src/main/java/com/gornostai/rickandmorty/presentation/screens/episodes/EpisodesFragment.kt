@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +31,7 @@ class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchB
 
     private lateinit var binding: FragmentEpisodesBinding
     private lateinit var viewModel: EpisodesViewModel
+    private lateinit var textWatcher: TextWatcher
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -62,7 +65,11 @@ class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchB
         setupRecyclerView()
         setupData()
         setupLoading()
+        setupTextWatcher()
         binding.swipeToRefresh.setOnRefreshListener {
+            if (binding.inputLayoutEpisodesSearch.visibility == View.VISIBLE) {
+                hideSearch()
+            }
             viewModel.fetchData()
         }
     }
@@ -74,7 +81,12 @@ class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchB
     }
 
     override fun onSearchPressed() {
-
+        if (binding.inputLayoutEpisodesSearch.visibility == View.GONE) {
+            showSearch()
+        } else {
+            hideSearch()
+            viewModel.fetchData()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -135,6 +147,31 @@ class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchB
             .setNeutralButton(getString(R.string.clear), listener)
             .create()
         dialog.show()
+    }
+
+    private fun setupTextWatcher() {
+        textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(query: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(query: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                viewModel.getFilteredData(EpisodeFilterEntity(name = query.toString()))
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        }
+    }
+
+    private fun showSearch() {
+        binding.inputLayoutEpisodesSearch.visibility = View.VISIBLE
+        binding.edEpisodesSearch.addTextChangedListener(textWatcher)
+    }
+
+    private fun hideSearch() {
+        binding.edEpisodesSearch.removeTextChangedListener(textWatcher)
+        binding.edEpisodesSearch.setText("")
+        binding.inputLayoutEpisodesSearch.visibility = View.GONE
     }
 
     companion object {
