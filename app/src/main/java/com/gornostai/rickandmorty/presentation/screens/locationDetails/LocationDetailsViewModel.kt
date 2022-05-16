@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gornostai.rickandmorty.domain.entities.CharacterEntity
 import com.gornostai.rickandmorty.domain.entities.LocationEntity
-import com.gornostai.rickandmorty.domain.usecases.GetCharacterItemUseCase
+import com.gornostai.rickandmorty.domain.usecases.GetCharactersListUseCase
 import com.gornostai.rickandmorty.domain.usecases.GetLocationItemUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,9 +14,8 @@ import javax.inject.Inject
 
 class LocationDetailsViewModel @Inject constructor(
     private val getLocationItemUseCase: GetLocationItemUseCase,
-    private val getCharacterItemUseCase: GetCharacterItemUseCase
+    private val getCharactersListUseCase: GetCharactersListUseCase
 ) : ViewModel() {
-
 
     private val _locationItem = MutableLiveData<LocationEntity>()
     val locationItem: LiveData<LocationEntity>
@@ -30,19 +29,29 @@ class LocationDetailsViewModel @Inject constructor(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
+    private val _showErrorMessage = MutableLiveData<Boolean>().apply { value = false }
+    val showErrorMessage: LiveData<Boolean>
+        get() = _showErrorMessage
+
     fun loadData(locationItemId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
             val locationItem = getLocationItemUseCase.getLocationItem(locationItemId)
             val charactersList = mutableListOf<CharacterEntity>()
-            for (i in locationItem.residents) {
-                if (i.isNotEmpty()) {
-                    charactersList.add(getCharacterItemUseCase.getCharacterItem(i.toInt()))
+            if (locationItem != null) {
+                if (locationItem.residents.isNotEmpty()) {
+                    val arrayOfIds = locationItem.residents.toString()
+                    charactersList.addAll(getCharactersListUseCase.getCharactersListByIds(arrayOfIds))
                 }
             }
             _isLoading.postValue(false)
-            _locationItem.postValue(locationItem)
-            _charactersList.postValue(charactersList.toList())
+            if (locationItem != null) {
+                _locationItem.postValue(locationItem!!)
+                _charactersList.postValue(charactersList.toList())
+            } else {
+                _showErrorMessage.postValue(true)
+                _showErrorMessage.postValue(false)
+            }
         }
     }
 

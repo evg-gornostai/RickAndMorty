@@ -126,7 +126,7 @@ class CharactersFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearc
             }
 
             override fun onTextChanged(query: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.getFilteredData(CharacterFilterEntity(name = query.toString()))
+                viewModel.fetchData(CharacterFilterEntity(name = query.toString()))
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -166,7 +166,7 @@ class CharactersFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearc
         val listener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
-                    viewModel.getFilteredData(
+                    viewModel.fetchData(
                         CharacterFilterEntity(
                             name = binding.edCharacterName.text.toString(),
                             species = binding.edCharacterSpecies.text.toString(),

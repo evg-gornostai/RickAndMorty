@@ -4,9 +4,7 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.gornostai.rickandmorty.data.local.dao.CharactersDao
-import com.gornostai.rickandmorty.data.local.dao.EpisodesDao
-import com.gornostai.rickandmorty.data.local.dao.LocationsDao
+import com.gornostai.rickandmorty.data.local.dao.RickAndMortyApiDao
 import com.gornostai.rickandmorty.data.local.models.CharacterDbModel
 import com.gornostai.rickandmorty.data.local.models.EpisodeDbModel
 import com.gornostai.rickandmorty.data.local.models.LocationDbModel
@@ -18,11 +16,7 @@ import com.gornostai.rickandmorty.data.local.models.LocationDbModel
 )
 abstract class AppDataBase : RoomDatabase() {
 
-    abstract fun characterDao(): CharactersDao
-
-    abstract fun episodeDao(): EpisodesDao
-
-    abstract fun locationDao(): LocationsDao
+    abstract fun rickAndMortyApiDao(): RickAndMortyApiDao
 
     companion object{
 

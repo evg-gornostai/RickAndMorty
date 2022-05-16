@@ -1,8 +1,6 @@
 package com.gornostai.rickandmorty.data.remote
 
-import com.gornostai.rickandmorty.data.remote.services.CharactersService
-import com.gornostai.rickandmorty.data.remote.services.EpisodesService
-import com.gornostai.rickandmorty.data.remote.services.LocationsService
+import com.gornostai.rickandmorty.data.remote.services.RickAndMortyApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -28,7 +26,5 @@ object ApiFactory {
         .client(okHttpClient)
         .build()
 
-    val characterService = retrofit.create(CharactersService::class.java)
-    val locationService = retrofit.create(LocationsService::class.java)
-    val episodeService = retrofit.create(EpisodesService::class.java)
+    val rickAndMortyApiService = retrofit.create(RickAndMortyApiService::class.java)
 }

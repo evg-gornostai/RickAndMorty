@@ -1,20 +1,13 @@
 package com.gornostai.rickandmorty.di
 
 import android.app.Application
+import com.gornostai.rickandmorty.data.datasources.*
 import com.gornostai.rickandmorty.data.local.AppDataBase
-import com.gornostai.rickandmorty.data.local.dao.CharactersDao
-import com.gornostai.rickandmorty.data.local.dao.EpisodesDao
-import com.gornostai.rickandmorty.data.local.dao.LocationsDao
+import com.gornostai.rickandmorty.data.local.dao.RickAndMortyApiDao
 import com.gornostai.rickandmorty.data.remote.ApiFactory
-import com.gornostai.rickandmorty.data.remote.services.CharactersService
-import com.gornostai.rickandmorty.data.remote.services.EpisodesService
-import com.gornostai.rickandmorty.data.remote.services.LocationsService
-import com.gornostai.rickandmorty.data.repositories.CharactersRepositoryImpl
-import com.gornostai.rickandmorty.data.repositories.EpisodesRepositoryImpl
-import com.gornostai.rickandmorty.data.repositories.LocationsRepositoryImpl
-import com.gornostai.rickandmorty.domain.repositories.CharactersRepository
-import com.gornostai.rickandmorty.domain.repositories.EpisodesRepository
-import com.gornostai.rickandmorty.domain.repositories.LocationsRepository
+import com.gornostai.rickandmorty.data.remote.services.RickAndMortyApiService
+import com.gornostai.rickandmorty.data.repositories.RickAndMortyApiRepositoryImpl
+import com.gornostai.rickandmorty.domain.repositories.RickAndMortyApiRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -23,59 +16,31 @@ import dagger.Provides
 interface DataModule {
 
     @Binds
-    @ApplicationScope
-    fun bindCharactersRepository(impl: CharactersRepositoryImpl): CharactersRepository
+    fun bindRickAndMortyApiRepository(impl: RickAndMortyApiRepositoryImpl): RickAndMortyApiRepository
 
     @Binds
-    @ApplicationScope
-    fun bindEpisodesRepository(impl: EpisodesRepositoryImpl): EpisodesRepository
+    fun bindIsOnlineDataSource(impl: IsOnlineDataSourceImpl): IsOnlineDataSource
 
     @Binds
-    @ApplicationScope
-    fun bindLocationsRepository(impl: LocationsRepositoryImpl): LocationsRepository
+    fun bindLocalDataSource(impl: LocalDataSourceImpl): LocalDataSource
+
+    @Binds
+    fun bindRemoteDataSource(impl: RemoteDataSourceImpl): RemoteDataSource
 
     companion object {
 
         @Provides
         @ApplicationScope
-        fun provideCharacterDao(
+        fun provideRickAndMortyApiDao(
             application: Application
-        ): CharactersDao {
-            return AppDataBase.getInstance(application).characterDao()
+        ): RickAndMortyApiDao {
+            return AppDataBase.getInstance(application).rickAndMortyApiDao()
         }
 
         @Provides
         @ApplicationScope
-        fun provideEpisodeDao(
-            application: Application
-        ): EpisodesDao {
-            return AppDataBase.getInstance(application).episodeDao()
-        }
-
-        @Provides
-        @ApplicationScope
-        fun provideLocationDao(
-            application: Application
-        ): LocationsDao {
-            return AppDataBase.getInstance(application).locationDao()
-        }
-
-        @Provides
-        @ApplicationScope
-        fun provideCharactersService(): CharactersService {
-            return ApiFactory.characterService
-        }
-
-        @Provides
-        @ApplicationScope
-        fun provideEpisodesService(): EpisodesService {
-            return ApiFactory.episodeService
-        }
-
-        @Provides
-        @ApplicationScope
-        fun provideLocationsService(): LocationsService {
-            return ApiFactory.locationService
+        fun provideRickAndMortyApiService(): RickAndMortyApiService {
+            return ApiFactory.rickAndMortyApiService
         }
 
     }

@@ -7,14 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.gornostai.rickandmorty.domain.entities.EpisodeEntity
 import com.gornostai.rickandmorty.domain.entities.EpisodeFilterEntity
 import com.gornostai.rickandmorty.domain.usecases.GetEpisodesListUseCase
-import com.gornostai.rickandmorty.domain.usecases.GetFilteredEpisodesListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class EpisodesViewModel @Inject constructor(
-    private val getEpisodesListUseCase: GetEpisodesListUseCase,
-    private val getFilteredEpisodesListUseCase: GetFilteredEpisodesListUseCase
+    private val getEpisodesListUseCase: GetEpisodesListUseCase
 ) : ViewModel() {
 
     var filter = EpisodeFilterEntity()
@@ -27,24 +25,13 @@ class EpisodesViewModel @Inject constructor(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    fun fetchData() {
-        filter = EpisodeFilterEntity()
-        viewModelScope.launch(Dispatchers.IO) {
-            _isLoading.postValue(true)
-            val episodes = getEpisodesListUseCase.getEpisodesList()
-            _isLoading.postValue(false)
-            _episodesList.postValue(episodes)
-        }
-    }
-
-    fun getFilteredData(filter: EpisodeFilterEntity) {
+    fun fetchData(filter: EpisodeFilterEntity = EpisodeFilterEntity()) {
         this.filter = filter
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
-            val filteredEpisodes =
-                getFilteredEpisodesListUseCase.getFilteredEpisodesList(filter)
+            val episodes = getEpisodesListUseCase.getEpisodesList(filter)
             _isLoading.postValue(false)
-            _episodesList.postValue(filteredEpisodes)
+            _episodesList.postValue(episodes)
         }
     }
 

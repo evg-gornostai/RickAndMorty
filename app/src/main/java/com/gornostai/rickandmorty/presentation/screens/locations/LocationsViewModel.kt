@@ -6,15 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gornostai.rickandmorty.domain.entities.LocationEntity
 import com.gornostai.rickandmorty.domain.entities.LocationFilterEntity
-import com.gornostai.rickandmorty.domain.usecases.GetFilteredLocationListUseCase
 import com.gornostai.rickandmorty.domain.usecases.GetLocationsListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LocationsViewModel @Inject constructor(
-    private val getLocationsUseCase: GetLocationsListUseCase,
-    private val getFilteredLocationListUseCase: GetFilteredLocationListUseCase
+    private val getLocationsUseCase: GetLocationsListUseCase
 ) : ViewModel() {
 
     var filter = LocationFilterEntity()
@@ -27,24 +25,13 @@ class LocationsViewModel @Inject constructor(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    fun fetchData() {
-        filter = LocationFilterEntity()
-        viewModelScope.launch(Dispatchers.IO) {
-            _isLoading.postValue(true)
-            val locations = getLocationsUseCase.getLocationsList()
-            _isLoading.postValue(false)
-            _locationsList.postValue(locations)
-        }
-    }
-
-    fun getFilteredData(filter: LocationFilterEntity) {
+    fun fetchData(filter: LocationFilterEntity = LocationFilterEntity()) {
         this.filter = filter
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
-            val filteredLocations =
-                getFilteredLocationListUseCase.getFilteredLocationsList(filter)
+            val locations = getLocationsUseCase.getLocationsList(filter)
             _isLoading.postValue(false)
-            _locationsList.postValue(filteredLocations)
+            _locationsList.postValue(locations)
         }
     }
 

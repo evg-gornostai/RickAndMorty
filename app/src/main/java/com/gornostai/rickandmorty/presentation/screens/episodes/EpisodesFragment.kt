@@ -125,7 +125,7 @@ class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchB
         val listener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
-                    viewModel.getFilteredData(
+                    viewModel.fetchData(
                         EpisodeFilterEntity(
                             name = binding.edEpisodeName.text.toString(),
                             code = binding.edEpisodeCode.text.toString()
@@ -155,7 +155,7 @@ class EpisodesFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearchB
             }
 
             override fun onTextChanged(query: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.getFilteredData(EpisodeFilterEntity(name = query.toString()))
+                viewModel.fetchData(EpisodeFilterEntity(name = query.toString()))
             }
 
             override fun afterTextChanged(p0: Editable?) {

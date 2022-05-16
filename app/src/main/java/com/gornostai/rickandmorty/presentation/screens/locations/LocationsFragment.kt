@@ -126,7 +126,7 @@ class LocationsFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearch
         val listener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
-                    viewModel.getFilteredData(
+                    viewModel.fetchData(
                         LocationFilterEntity(
                             name = binding.edLocationName.text.toString(),
                             dimension = binding.edLocationDimension.text.toString(),
@@ -157,7 +157,7 @@ class LocationsFragment : Fragment(), HasCustomTitle, HasFilterButton, HasSearch
             }
 
             override fun onTextChanged(query: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.getFilteredData(LocationFilterEntity(name = query.toString()))
+                viewModel.fetchData(LocationFilterEntity(name = query.toString()))
             }
 
             override fun afterTextChanged(p0: Editable?) {

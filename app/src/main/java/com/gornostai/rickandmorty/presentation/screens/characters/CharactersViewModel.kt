@@ -7,14 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.gornostai.rickandmorty.domain.entities.CharacterEntity
 import com.gornostai.rickandmorty.domain.entities.CharacterFilterEntity
 import com.gornostai.rickandmorty.domain.usecases.GetCharactersListUseCase
-import com.gornostai.rickandmorty.domain.usecases.GetFilteredCharactersListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharactersViewModel @Inject constructor(
-    private val getCharactersListUseCase: GetCharactersListUseCase,
-    private val getFilteredCharactersListUseCase: GetFilteredCharactersListUseCase
+    private val getCharactersListUseCase: GetCharactersListUseCase
 ) : ViewModel() {
 
     var filter = CharacterFilterEntity()
@@ -27,24 +25,13 @@ class CharactersViewModel @Inject constructor(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    fun fetchData() {
-        filter = CharacterFilterEntity()
-        viewModelScope.launch(Dispatchers.IO) {
-            _isLoading.postValue(true)
-            val characters = getCharactersListUseCase.getCharactersList()
-            _isLoading.postValue(false)
-            _charactersList.postValue(characters)
-        }
-    }
-
-    fun getFilteredData(filter: CharacterFilterEntity) {
+    fun fetchData(filter: CharacterFilterEntity = CharacterFilterEntity()) {
         this.filter = filter
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
-            val filteredCharacters =
-                getFilteredCharactersListUseCase.getFilteredCharactersList(filter)
+            val characters = getCharactersListUseCase.getCharactersList(filter)
             _isLoading.postValue(false)
-            _charactersList.postValue(filteredCharacters)
+            _charactersList.postValue(characters)
         }
     }
 

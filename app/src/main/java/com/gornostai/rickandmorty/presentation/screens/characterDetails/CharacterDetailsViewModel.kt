@@ -8,7 +8,7 @@ import com.gornostai.rickandmorty.domain.entities.CharacterEntity
 import com.gornostai.rickandmorty.domain.entities.EpisodeEntity
 import com.gornostai.rickandmorty.domain.entities.LocationEntity
 import com.gornostai.rickandmorty.domain.usecases.GetCharacterItemUseCase
-import com.gornostai.rickandmorty.domain.usecases.GetEpisodeItemUseCase
+import com.gornostai.rickandmorty.domain.usecases.GetEpisodesListUseCase
 import com.gornostai.rickandmorty.domain.usecases.GetLocationItemUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,8 +16,8 @@ import javax.inject.Inject
 
 class CharacterDetailsViewModel @Inject constructor(
     private val getCharacterItemUseCase: GetCharacterItemUseCase,
-    private val getEpisodeItemUseCase: GetEpisodeItemUseCase,
-    private val getLocationItemUseCase: GetLocationItemUseCase
+    private val getLocationItemUseCase: GetLocationItemUseCase,
+    private val getEpisodesListUseCase: GetEpisodesListUseCase
 ) : ViewModel() {
 
     private val _characterItem = MutableLiveData<CharacterEntity>()
@@ -40,28 +40,47 @@ class CharacterDetailsViewModel @Inject constructor(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
+    private val _showErrorMessage = MutableLiveData<Boolean>().apply { value = false }
+    val showErrorMessage: LiveData<Boolean>
+        get() = _showErrorMessage
+
     fun loadData(characterItemId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
             val characterItem = getCharacterItemUseCase.getCharacterItem(characterItemId)
-            if (characterItem.originId.isNotEmpty()) {
-                val originLocation =
-                    getLocationItemUseCase.getLocationItem(characterItem.originId.toInt())
-                _originLocation.postValue(originLocation)
-            }
-            if (characterItem.locationId.isNotEmpty()) {
-                val lastLocation =
-                    getLocationItemUseCase.getLocationItem(characterItem.locationId.toInt())
-                _lastLocation.postValue(lastLocation)
-            }
             val episodesList = mutableListOf<EpisodeEntity>()
-            for (i in characterItem.episode) {
-                episodesList.add(getEpisodeItemUseCase.getEpisodeItem(i.toInt()))
+            var originLocation: LocationEntity? = null
+            var lastLocation: LocationEntity? = null
+            var episodeItem: EpisodeEntity? = null
+            if (characterItem != null) {
+                if (characterItem.originId.isNotEmpty()) {
+                    originLocation =
+                        getLocationItemUseCase.getLocationItem(characterItem.originId.toInt())
+                }
+                if (characterItem.locationId.isNotEmpty()) {
+                    lastLocation =
+                        getLocationItemUseCase.getLocationItem(characterItem.locationId.toInt())
+                }
+                if (characterItem.episode.isNotEmpty()){
+                    val arrayOfIds = characterItem.episode.toString()
+                    episodesList.addAll(getEpisodesListUseCase.getEpisodesListByIds(arrayOfIds))
+                }
             }
             _isLoading.postValue(false)
-            _characterItem.postValue(characterItem)
-            _episodesList.postValue(episodesList.toList())
+            if (characterItem != null) {
+                _episodesList.postValue(episodesList.toList())
+                _characterItem.postValue(characterItem!!)
+            } else {
+                _showErrorMessage.postValue(true)
+                _showErrorMessage.postValue(false)
+            }
+            if (originLocation != null) {
+                _originLocation.postValue(originLocation!!)
+            }
+            if (lastLocation != null) {
+                _lastLocation.postValue(lastLocation!!)
+            }
         }
-    }
 
+    }
 }
