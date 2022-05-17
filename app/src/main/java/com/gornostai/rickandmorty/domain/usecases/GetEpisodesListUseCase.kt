@@ -13,7 +13,7 @@ class GetEpisodesListUseCase @Inject constructor(
         return repository.getEpisodesList(filter)
     }
 
-    suspend fun getEpisodesListByIds(arrayOfId: String): List<EpisodeEntity> {
+    suspend fun getEpisodesListByIds(arrayOfId: List<String>): List<EpisodeEntity> {
         return repository.getEpisodesListByIds(arrayOfId)
     }
 

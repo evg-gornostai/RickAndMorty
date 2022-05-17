@@ -13,7 +13,7 @@ class GetCharactersListUseCase @Inject constructor(
         return repository.getCharactersList(filter)
     }
 
-    suspend fun getCharactersListByIds(arrayOfId: String): List<CharacterEntity> {
+    suspend fun getCharactersListByIds(arrayOfId: List<String>): List<CharacterEntity> {
         return repository.getCharactersListByIds(arrayOfId)
     }
 

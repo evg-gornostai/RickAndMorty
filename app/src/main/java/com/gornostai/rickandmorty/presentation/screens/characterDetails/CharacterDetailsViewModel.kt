@@ -51,7 +51,6 @@ class CharacterDetailsViewModel @Inject constructor(
             val episodesList = mutableListOf<EpisodeEntity>()
             var originLocation: LocationEntity? = null
             var lastLocation: LocationEntity? = null
-            var episodeItem: EpisodeEntity? = null
             if (characterItem != null) {
                 if (characterItem.originId.isNotEmpty()) {
                     originLocation =
@@ -62,7 +61,7 @@ class CharacterDetailsViewModel @Inject constructor(
                         getLocationItemUseCase.getLocationItem(characterItem.locationId.toInt())
                 }
                 if (characterItem.episode.isNotEmpty()){
-                    val arrayOfIds = characterItem.episode.toString()
+                    val arrayOfIds = characterItem.episode
                     episodesList.addAll(getEpisodesListUseCase.getEpisodesListByIds(arrayOfIds))
                 }
             }

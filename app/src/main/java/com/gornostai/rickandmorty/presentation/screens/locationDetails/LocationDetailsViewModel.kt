@@ -40,7 +40,7 @@ class LocationDetailsViewModel @Inject constructor(
             val charactersList = mutableListOf<CharacterEntity>()
             if (locationItem != null) {
                 if (locationItem.residents.isNotEmpty()) {
-                    val arrayOfIds = locationItem.residents.toString()
+                    val arrayOfIds = locationItem.residents
                     charactersList.addAll(getCharactersListUseCase.getCharactersListByIds(arrayOfIds))
                 }
             }

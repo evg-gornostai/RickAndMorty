@@ -14,7 +14,7 @@ class LocalDataSourceImpl @Inject constructor(
         rickAndMortyApiDao.addCharacter(characterDbModel)
     }
 
-    override suspend fun getCharacter(characterId: Int): CharacterDbModel? {
+    override suspend fun getCharacter(characterId: String): CharacterDbModel? {
         return rickAndMortyApiDao.getCharacter(characterId)
     }
 

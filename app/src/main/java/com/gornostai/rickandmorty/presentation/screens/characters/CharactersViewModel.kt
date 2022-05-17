@@ -29,6 +29,7 @@ class CharactersViewModel @Inject constructor(
         this.filter = filter
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
+            _charactersList.postValue(listOf())
             val characters = getCharactersListUseCase.getCharactersList(filter)
             _isLoading.postValue(false)
             _charactersList.postValue(characters)

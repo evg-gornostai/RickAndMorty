@@ -8,7 +8,7 @@ interface LocalDataSource {
 
     suspend fun addCharacter(characterDbModel: CharacterDbModel)
 
-    suspend fun getCharacter(characterId: Int): CharacterDbModel?
+    suspend fun getCharacter(characterId: String): CharacterDbModel?
 
     suspend fun addEpisode(episodeDbModel: EpisodeDbModel)
 

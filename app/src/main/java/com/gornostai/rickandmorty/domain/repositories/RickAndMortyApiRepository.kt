@@ -8,13 +8,13 @@ interface RickAndMortyApiRepository {
 
     suspend fun getCharactersList(filter: CharacterFilterEntity): List<CharacterEntity>
 
-    suspend fun getCharactersListByIds(arrayOfId: String): List<CharacterEntity>
+    suspend fun getCharactersListByIds(arrayOfId: List<String>): List<CharacterEntity>
 
     suspend fun getEpisodeItem(episodeItemId: Int): EpisodeEntity?
 
     suspend fun getEpisodesList(filter: EpisodeFilterEntity): List<EpisodeEntity>
 
-    suspend fun getEpisodesListByIds(arrayOfId: String): List<EpisodeEntity>
+    suspend fun getEpisodesListByIds(arrayOfId: List<String>): List<EpisodeEntity>
 
     suspend fun getLocationItem(locationItemId: Int): LocationEntity?
 

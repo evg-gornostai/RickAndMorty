@@ -40,7 +40,7 @@ class EpisodeDetailsViewModel @Inject constructor(
             val charactersList = mutableListOf<CharacterEntity>()
             if (episodeItem != null) {
                 if (episodeItem.characters.isNotEmpty()) {
-                    val arrayOfIds = episodeItem.characters.toString()
+                    val arrayOfIds = episodeItem.characters
                     charactersList.addAll(getCharactersListUseCase.getCharactersListByIds(arrayOfIds))
                 }
             }
