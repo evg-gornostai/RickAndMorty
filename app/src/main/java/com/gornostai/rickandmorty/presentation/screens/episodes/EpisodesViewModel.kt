@@ -29,7 +29,6 @@ class EpisodesViewModel @Inject constructor(
         this.filter = filter
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
-            _episodesList.postValue(listOf())
             val episodes = getEpisodesListUseCase.getEpisodesList(filter)
             _isLoading.postValue(false)
             _episodesList.postValue(episodes)

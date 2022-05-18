@@ -29,7 +29,6 @@ class LocationsViewModel @Inject constructor(
         this.filter = filter
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
-            _locationsList.postValue(listOf())
             val locations = getLocationsUseCase.getLocationsList(filter)
             _isLoading.postValue(false)
             _locationsList.postValue(locations)
